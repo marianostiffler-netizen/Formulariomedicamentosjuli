@@ -1,0 +1,29 @@
+{
+  "name": "farmacia-pedidos",
+  "version": "1.0.0",
+  "description": "Formulario de pedidos de medicamentos con conexión a Google Sheets",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve .",
+    "dev": "npx serve . -l 3000",
+    "build": "echo 'No build process needed for static site'",
+    "deploy": "netlify deploy --prod",
+    "test": "echo 'No tests specified yet'"
+  },
+  "keywords": [
+    "farmacia",
+    "pedidos",
+    "medicamentos",
+    "formulario",
+    "google-sheets",
+    "serverless"
+  ],
+  "author": "Tu Nombre",
+  "license": "MIT",
+  "devDependencies": {
+    "serve": "^14.2.1"
+  },
+  "dependencies": {
+    "google-spreadsheet": "^3.3.0"
+  }
+}

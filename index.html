@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Pedidos de Medicamentos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Formulario de Pedidos de Medicamentos</h1>
+            <p>Complete el siguiente formulario para realizar su pedido</p>
+        </header>
+        
+        <main>
+            <form id="orderForm">
+                <!-- Datos del paciente -->
+                <section class="form-section">
+                    <h2>Datos del Paciente</h2>
+                    <div class="form-group">
+                        <label for="patientName">Nombre completo:</label>
+                        <input type="text" id="patientName" name="patientName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="patientDNI">DNI:</label>
+                        <input type="text" id="patientDNI" name="patientDNI" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="patientPhone">Teléfono:</label>
+                        <input type="tel" id="patientPhone" name="patientPhone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="patientEmail">Email:</label>
+                        <input type="email" id="patientEmail" name="patientEmail" required>
+                    </div>
+                </section>
+
+                <!-- Datos del medicamento -->
+                <section class="form-section">
+                    <h2>Datos del Medicamento</h2>
+                    <div class="form-group">
+                        <label for="medicationName">Nombre del medicamento:</label>
+                        <input type="text" id="medicationName" name="medicationName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="medicationDosage">Dosificación:</label>
+                        <input type="text" id="medicationDosage" name="medicationDosage" placeholder="Ej: 500mg" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="medicationQuantity">Cantidad:</label>
+                        <input type="number" id="medicationQuantity" name="medicationQuantity" min="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="medicationFrequency">Frecuencia:</label>
+                        <select id="medicationFrequency" name="medicationFrequency" required>
+                            <option value="">Seleccione...</option>
+                            <option value="diario">Diario</option>
+                            <option value="semanal">Semanal</option>
+                            <option value="mensual">Mensual</option>
+                        </select>
+                    </div>
+                </section>
+
+                <!-- Información adicional -->
+                <section class="form-section">
+                    <h2>Información Adicional</h2>
+                    <div class="form-group">
+                        <label for="doctorName">Médico recetante:</label>
+                        <input type="text" id="doctorName" name="doctorName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="observations">Observaciones:</label>
+                        <textarea id="observations" name="observations" rows="4"></textarea>
+                    </div>
+                </section>
+
+                <!-- Botones de acción -->
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Enviar Pedido</button>
+                    <button type="reset" class="btn btn-secondary">Limpiar Formulario</button>
+                </div>
+            </form>
+
+            <!-- Mensajes de estado -->
+            <div id="messageContainer" class="message-container" style="display: none;">
+                <div id="messageContent"></div>
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
