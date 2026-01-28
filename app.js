@@ -1,6 +1,9 @@
 // Variables globales
 const API_ENDPOINT = '/api/submit-order';
 
+// Cache DOM elements
+let form, submitBtn, messageContainer, messageContent;
+
 // Esperar a que el DOM esté completamente cargado
 document.addEventListener('DOMContentLoaded', function() {
     initializeForm();
@@ -8,7 +11,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Inicializar el formulario
 function initializeForm() {
-    const form = document.getElementById('orderForm');
+    // Cache elements para mejor rendimiento
+    form = document.getElementById('orderForm');
+    submitBtn = form.querySelector('[type="submit"]');
+    messageContainer = document.getElementById('messageContainer');
+    messageContent = document.getElementById('messageContent');
     
     // Agregar evento de submit al formulario
     form.addEventListener('submit', handleFormSubmit);
@@ -20,42 +27,51 @@ function initializeForm() {
     addRealTimeValidation();
 }
 
-// Manejar el envío del formulario
+// Manejar el envío del formulario - Optimizado para velocidad
 async function handleFormSubmit(event) {
     event.preventDefault();
     
-    // Validar formulario
+    // Validar formulario rápidamente
     if (!validateForm()) {
-        showMessage('Por favor, complete todos los campos requeridos correctamente.', 'error');
+        showMessage('Por favor, complete todos los campos requeridos.', 'error');
         return;
     }
     
     // Obtener datos del formulario
     const formData = getFormData();
     
-    // Mostrar mensaje de carga
+    // Mostrar estado de carga inmediato
+    setLoadingState(true);
     showMessage('Enviando pedido...', 'loading');
     
+    // Timeout para evitar esperas infinitas
+    const timeoutPromise = new Promise((_, reject) => 
+        setTimeout(() => reject(new Error('Tiempo de espera agotado')), 10000)
+    );
+    
     try {
-        // Enviar datos a la API
-        const response = await fetch(API_ENDPOINT, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData)
-        });
+        // Enviar datos a la API con timeout
+        const response = await Promise.race([
+            fetch(API_ENDPOINT, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
+            }),
+            timeoutPromise
+        ]);
         
         const result = await response.json();
         
         if (response.ok) {
-            // Éxito
+            // Éxito inmediato
             showMessage('¡Pedido enviado correctamente! Nos contactaremos pronto.', 'success');
             // Resetear formulario después de 2 segundos
             setTimeout(() => {
-                document.getElementById('orderForm').reset();
+                form.reset();
                 hideMessage();
-            }, 3000);
+            }, 2000);
         } else {
             // Error del servidor
             throw new Error(result.message || 'Error al enviar el pedido');
@@ -63,15 +79,37 @@ async function handleFormSubmit(event) {
         
     } catch (error) {
         console.error('Error:', error);
-        showMessage(`Error: ${error.message}`, 'error');
+        let errorMessage = 'Error de conexión. Intente nuevamente.';
+        
+        if (error.message === 'Tiempo de espera agotado') {
+            errorMessage = 'El servidor está tardando demasiado. Intente nuevamente.';
+        } else if (error.message) {
+            errorMessage = error.message;
+        }
+        
+        showMessage(errorMessage, 'error');
+    } finally {
+        // Restaurar estado del botón
+        setLoadingState(false);
     }
 }
 
-// Validar formulario
+// Establecer estado de carga
+function setLoadingState(isLoading) {
+    if (isLoading) {
+        submitBtn.disabled = true;
+        submitBtn.classList.add('loading');
+        submitBtn.innerHTML = '<span class="loading"></span>Enviando...';
+    } else {
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('loading');
+        submitBtn.innerHTML = 'Enviar Pedido';
+    }
+}
+
+// Validar formulario - Optimizado
 function validateForm() {
-    const form = document.getElementById('orderForm');
     const requiredFields = form.querySelectorAll('[required]');
-    
     let isValid = true;
     
     requiredFields.forEach(field => {
@@ -83,21 +121,21 @@ function validateForm() {
         }
     });
     
-    // Validaciones específicas
+    // Validaciones específicas optimizadas
     const email = document.getElementById('patientEmail');
-    if (email.value && !isValidEmail(email.value)) {
+    if (email?.value && !isValidEmail(email.value)) {
         isValid = false;
         email.classList.add('invalid');
     }
     
     const phone = document.getElementById('patientPhone');
-    if (phone.value && !isValidPhone(phone.value)) {
+    if (phone?.value && !isValidPhone(phone.value)) {
         isValid = false;
         phone.classList.add('invalid');
     }
     
     const quantity = document.getElementById('medicationQuantity');
-    if (quantity.value && parseInt(quantity.value) < 1) {
+    if (quantity?.value && parseInt(quantity.value) < 1) {
         isValid = false;
         quantity.classList.add('invalid');
     }
@@ -105,13 +143,12 @@ function validateForm() {
     return isValid;
 }
 
-// Obtener datos del formulario
+// Obtener datos del formulario - Optimizado
 function getFormData() {
-    const form = document.getElementById('orderForm');
     const formData = new FormData(form);
-    
-    // Convertir FormData a objeto y agregar timestamp
     const data = Object.fromEntries(formData.entries());
+    
+    // Agregar metadata
     data.timestamp = new Date().toISOString();
     data.orderId = generateOrderId();
     
@@ -137,18 +174,13 @@ function isValidPhone(phone) {
     return phoneRegex.test(phone) && phone.replace(/\D/g, '').length >= 8;
 }
 
-// Mostrar mensaje
+// Mostrar mensaje - Optimizado
 function showMessage(message, type) {
-    const messageContainer = document.getElementById('messageContainer');
-    const messageContent = document.getElementById('messageContent');
-    
     // Limpiar clases anteriores
     messageContainer.className = 'message-container';
-    
-    // Agregar clase según el tipo
     messageContainer.classList.add(`message-${type}`);
     
-    // Agregar spinner si es loading
+    // Agregar contenido con spinner si es loading
     if (type === 'loading') {
         messageContent.innerHTML = `<span class="loading"></span>${message}`;
     } else {
@@ -158,13 +190,16 @@ function showMessage(message, type) {
     // Mostrar contenedor
     messageContainer.style.display = 'block';
     
-    // Hacer scroll al mensaje
-    messageContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    // Hacer scroll al mensaje solo si no es loading
+    if (type !== 'loading') {
+        setTimeout(() => {
+            messageContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 100);
+    }
 }
 
 // Ocultar mensaje
 function hideMessage() {
-    const messageContainer = document.getElementById('messageContainer');
     messageContainer.style.display = 'none';
 }
 
@@ -172,27 +207,28 @@ function hideMessage() {
 function handleFormReset() {
     hideMessage();
     // Limpiar clases de validación
-    const form = document.getElementById('orderForm');
     const allFields = form.querySelectorAll('input, select, textarea');
     allFields.forEach(field => {
         field.classList.remove('invalid');
     });
 }
 
-// Agregar validación en tiempo real
+// Agregar validación en tiempo real - Optimizado
 function addRealTimeValidation() {
-    const form = document.getElementById('orderForm');
     const fields = form.querySelectorAll('input, select, textarea');
     
     fields.forEach(field => {
-        // Validar al salir del campo
+        // Validar al salir del campo (debounced)
+        let timeout;
         field.addEventListener('blur', function() {
-            validateField(field);
+            clearTimeout(timeout);
+            timeout = setTimeout(() => validateField(field), 100);
         });
         
         // Limpiar validación al empezar a editar
         field.addEventListener('input', function() {
             field.classList.remove('invalid');
+            clearTimeout(timeout);
         });
     });
 }

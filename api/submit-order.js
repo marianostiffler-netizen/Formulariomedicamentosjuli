@@ -118,10 +118,8 @@ function validateOrderData(data) {
         'patientPhone',
         'patientEmail',
         'medicationName',
-        'medicationDosage',
         'medicationQuantity',
-        'medicationFrequency',
-        'doctorName'
+        'medicationFrequency'
     ];
     
     // Verificar campos requeridos
@@ -162,11 +160,8 @@ async function ensureSheetHeaders(sheet) {
         'Teléfono Paciente',
         'Email Paciente',
         'Nombre Medicamento',
-        'Dosificación',
         'Cantidad',
         'Frecuencia',
-        'Médico Recetante',
-        'Observaciones',
         'Estado'
     ];
     
@@ -202,11 +197,8 @@ function prepareRowData(data) {
         'Teléfono Paciente': data.patientPhone || '',
         'Email Paciente': data.patientEmail || '',
         'Nombre Medicamento': data.medicationName || '',
-        'Dosificación': data.medicationDosage || '',
         'Cantidad': data.medicationQuantity || '',
         'Frecuencia': data.medicationFrequency || '',
-        'Médico Recetante': data.doctorName || '',
-        'Observaciones': data.observations || '',
         'Estado': 'Pendiente' // Estado inicial
     };
 }

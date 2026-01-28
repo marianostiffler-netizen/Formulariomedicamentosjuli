@@ -40,38 +40,41 @@
                 <section class="form-section">
                     <h2>Datos del Medicamento</h2>
                     <div class="form-group">
-                        <label for="medicationName">Nombre del medicamento:</label>
-                        <input type="text" id="medicationName" name="medicationName" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="medicationDosage">Dosificación:</label>
-                        <input type="text" id="medicationDosage" name="medicationDosage" placeholder="Ej: 500mg" required>
+                        <label for="medicationName">Medicamento:</label>
+                        <select id="medicationName" name="medicationName" required>
+                            <option value="">Seleccione un medicamento...</option>
+                            <option value="Ibuprofeno 600mg">Ibuprofeno 600mg</option>
+                            <option value="Paracetamol 500mg">Paracetamol 500mg</option>
+                            <option value="Amoxicilina 500mg">Amoxicilina 500mg</option>
+                            <option value="Omeprazol 20mg">Omeprazol 20mg</option>
+                            <option value="Loratadina 10mg">Loratadina 10mg</option>
+                            <option value="Salbutamol 100mcg">Salbutamol 100mcg</option>
+                            <option value="Metformina 850mg">Metformina 850mg</option>
+                            <option value="Enalapril 10mg">Enalapril 10mg</option>
+                            <option value="Atorvastatina 20mg">Atorvastatina 20mg</option>
+                            <option value="Losartan 50mg">Losartan 50mg</option>
+                            <option value="Aspirina 100mg">Aspirina 100mg</option>
+                            <option value="Diazepam 10mg">Diazepam 10mg</option>
+                            <option value="Ciprofloxacina 500mg">Ciprofloxacina 500mg</option>
+                            <option value="Prednisona 5mg">Prednisona 5mg</option>
+                            <option value="Insulina NPH">Insulina NPH</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="medicationQuantity">Cantidad:</label>
-                        <input type="number" id="medicationQuantity" name="medicationQuantity" min="1" required>
+                        <input type="number" id="medicationQuantity" name="medicationQuantity" min="1" max="10" placeholder="Ej: 2" required>
                     </div>
                     <div class="form-group">
                         <label for="medicationFrequency">Frecuencia:</label>
                         <select id="medicationFrequency" name="medicationFrequency" required>
                             <option value="">Seleccione...</option>
-                            <option value="diario">Diario</option>
-                            <option value="semanal">Semanal</option>
-                            <option value="mensual">Mensual</option>
+                            <option value="Una vez">Una vez</option>
+                            <option value="Diario">Diario</option>
+                            <option value="Cada 8 horas">Cada 8 horas</option>
+                            <option value="Cada 12 horas">Cada 12 horas</option>
+                            <option value="Semanal">Semanal</option>
+                            <option value="Mensual">Mensual</option>
                         </select>
-                    </div>
-                </section>
-
-                <!-- Información adicional -->
-                <section class="form-section">
-                    <h2>Información Adicional</h2>
-                    <div class="form-group">
-                        <label for="doctorName">Médico recetante:</label>
-                        <input type="text" id="doctorName" name="doctorName" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="observations">Observaciones:</label>
-                        <textarea id="observations" name="observations" rows="4"></textarea>
                     </div>
                 </section>
 
