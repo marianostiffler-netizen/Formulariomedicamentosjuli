@@ -204,10 +204,10 @@ main {
     background: var(--error-color);
 }
 
-/* Catálogo de Medicamentos - Grilla Fluida y Alineada */
+/* Catálogo de Medicamentos - Grilla Responsiva Real */
 .medications-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 12px;
     margin-bottom: 24px;
     width: 95%;
@@ -407,7 +407,7 @@ main {
 }
 
 /* Optimizaciones para móviles - Grilla responsiva */
-@media (max-width: 480px) {
+@media (max-width: 767px) {
     .medications-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 8px;
@@ -442,25 +442,60 @@ main {
     }
 }
 
-@media (min-width: 481px) and (max-width: 768px) {
+/* Versión Escritorio - 4 o 5 columnas */
+@media (min-width: 768px) {
     .medications-grid {
-        grid-template-columns: repeat(3, 1fr);
-        width: 90%;
-    }
-}
-
-@media (min-width: 769px) and (max-width: 1024px) {
-    .medications-grid {
-        grid-template-columns: repeat(4, 1fr);
-        width: 90%;
-    }
-}
-
-@media (min-width: 1025px) {
-    .medications-grid {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 16px;
         width: 95%;
         max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .medication-card {
+        padding: 16px;
+        min-height: 140px;
+        transition: var(--transition);
+    }
+    
+    .medication-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(0, 74, 153, 0.15);
+    }
+    
+    .medication-name {
+        font-size: 0.85rem;
+        line-height: 1.2;
+        margin-bottom: 12px;
+    }
+    
+    .quantity-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 1rem;
+    }
+    
+    .quantity-display {
+        font-size: 1rem;
+        min-width: 28px;
+    }
+    
+    .quantity-selector {
+        padding: 4px;
+        gap: 6px;
+    }
+}
+
+/* Escritorio Grande - Más columnas */
+@media (min-width: 1200px) {
+    .medications-grid {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 16px;
+    }
+    
+    .medication-card {
+        min-height: 130px;
     }
 }
 
