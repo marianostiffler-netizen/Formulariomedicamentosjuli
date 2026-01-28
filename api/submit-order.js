@@ -116,10 +116,7 @@ function validateOrderData(data) {
         'patientName',
         'patientDNI', 
         'patientPhone',
-        'patientEmail',
-        'medicationName',
-        'medicationQuantity',
-        'medicationFrequency'
+        'patientEmail'
     ];
     
     // Verificar campos requeridos
@@ -159,9 +156,8 @@ async function ensureSheetHeaders(sheet) {
         'DNI Paciente',
         'Teléfono Paciente',
         'Email Paciente',
-        'Nombre Medicamento',
-        'Cantidad',
-        'Frecuencia',
+        'Medicamentos',
+        'Total Items',
         'Estado'
     ];
     
@@ -196,9 +192,8 @@ function prepareRowData(data) {
         'DNI Paciente': data.patientDNI || '',
         'Teléfono Paciente': data.patientPhone || '',
         'Email Paciente': data.patientEmail || '',
-        'Nombre Medicamento': data.medicationName || '',
-        'Cantidad': data.medicationQuantity || '',
-        'Frecuencia': data.medicationFrequency || '',
+        'Medicamentos': data.medicamentos || '',
+        'Total Items': data.totalItems || 0,
         'Estado': 'Pendiente' // Estado inicial
     };
 }

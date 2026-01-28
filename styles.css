@@ -154,13 +154,217 @@ main {
     min-height: 80px;
 }
 
-/* Select custom styling */
-.form-group select {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
-    background-position: right 12px center;
-    background-repeat: no-repeat;
-    background-size: 20px;
-    padding-right: 40px;
+/* Catálogo de Medicamentos - Grilla de Tarjetas */
+.medications-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.medication-card {
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    position: relative;
+}
+
+.medication-card:hover {
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.medication-card.selected {
+    border-color: var(--primary-color);
+    background: rgb(0, 74, 153, 0.05);
+    box-shadow: 0 4px 16px rgba(0, 74, 153, 0.15);
+}
+
+.medication-name {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    margin-bottom: 12px;
+    line-height: 1.3;
+    min-height: 2.6em;
+    display: flex;
+    align-items: center;
+}
+
+.quantity-selector {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--background);
+    border-radius: 12px;
+    padding: 4px;
+    border: 1px solid var(--border-color);
+}
+
+.quantity-btn {
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.quantity-btn:hover {
+    background: var(--primary-dark);
+    transform: scale(1.05);
+}
+
+.quantity-btn:active {
+    transform: scale(0.95);
+}
+
+.quantity-btn:disabled {
+    background: var(--secondary-color);
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.quantity-display {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 1rem;
+    min-width: 40px;
+    text-align: center;
+}
+
+/* Resumen del Pedido */
+.summary-content {
+    background: var(--background);
+    border-radius: 16px;
+    padding: 20px;
+    border: 2px solid var(--border-color);
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.summary-item:last-child {
+    border-bottom: none;
+}
+
+.summary-medication {
+    font-weight: 500;
+    color: var(--text-primary);
+    flex: 1;
+}
+
+.summary-quantity {
+    background: var(--primary-color);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.summary-total {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 2px solid var(--primary-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--primary-color);
+}
+
+/* Optimizaciones para móviles - Grilla responsiva */
+@media (max-width: 480px) {
+    .medications-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    
+    .medication-card {
+        padding: 14px;
+    }
+    
+    .medication-name {
+        font-size: 0.9rem;
+        min-height: 2.4em;
+    }
+    
+    .quantity-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 1rem;
+    }
+    
+    .summary-content {
+        padding: 16px;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+    .medications-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Estados de selección */
+.medication-card.has-quantity {
+    border-color: var(--primary-color);
+    background: linear-gradient(135deg, rgba(0, 74, 153, 0.05), rgba(0, 74, 153, 0.02));
+}
+
+/* Animaciones */
+.medication-card {
+    animation: fadeInUp 0.4s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Badge de cantidad */
+.quantity-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 12px;
+    padding: 4px 8px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    display: none;
+}
+
+.medication-card.has-quantity .quantity-badge {
+    display: block;
 }
 
 /* Buttons modernos y grandes para móviles - Diseño Profesional */
