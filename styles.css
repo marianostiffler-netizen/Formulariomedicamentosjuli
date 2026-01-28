@@ -204,12 +204,16 @@ main {
     background: var(--error-color);
 }
 
-/* Catálogo de Medicamentos - Grilla Moderna */
+/* Catálogo de Medicamentos - Grilla Fluida y Alineada */
 .medications-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 12px;
     margin-bottom: 24px;
+    width: 95%;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .medication-card {
@@ -220,9 +224,11 @@ main {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     transition: var(--transition);
     position: relative;
-    min-height: 100px;
+    height: 100%;
+    min-height: 120px;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
 }
 
 .medication-card:hover {
@@ -240,12 +246,15 @@ main {
 .medication-name {
     font-weight: 500;
     color: var(--text-primary);
-    font-size: 0.85rem;
-    line-height: 1.2;
+    font-size: 0.75rem;
+    line-height: 1.1;
     margin-bottom: 8px;
     flex: 1;
     display: flex;
     align-items: center;
+    text-align: center;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .quantity-selector {
@@ -401,22 +410,23 @@ main {
 @media (max-width: 480px) {
     .medications-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
+        gap: 8px;
+        width: 90%;
     }
     
     .medication-card {
-        padding: 10px;
-        min-height: 90px;
+        padding: 8px;
+        min-height: 100px;
     }
     
     .medication-name {
-        font-size: 0.8rem;
+        font-size: 0.7rem;
     }
     
     .quantity-btn {
-        width: 24px;
-        height: 24px;
-        font-size: 0.9rem;
+        width: 22px;
+        height: 22px;
+        font-size: 0.8rem;
     }
     
     .floating-cart {
@@ -435,18 +445,22 @@ main {
 @media (min-width: 481px) and (max-width: 768px) {
     .medications-grid {
         grid-template-columns: repeat(3, 1fr);
+        width: 90%;
     }
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
     .medications-grid {
         grid-template-columns: repeat(4, 1fr);
+        width: 90%;
     }
 }
 
 @media (min-width: 1025px) {
     .medications-grid {
-        grid-template-columns: repeat(5, 1fr);
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        width: 95%;
+        max-width: 1200px;
     }
 }
 
