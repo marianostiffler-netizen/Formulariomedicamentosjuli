@@ -210,7 +210,13 @@ main {
     margin: 20px auto !important;
     display: block !important;
 }
-#medications-grid { display: grid !important; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)) !important; gap: 15px !important; padding: 10px; }
+#medications-grid { 
+    display: grid !important; 
+    grid-template-columns: repeat(auto-fill, 120px) !important; 
+    gap: 15px !important; 
+    padding: 10px; 
+    justify-content: center !important;
+}
 
 @media (max-width: 600px) { #medications-grid { grid-template-columns: repeat(2, 1fr) !important; /* 2 columnas en celu */ } }
 
@@ -218,15 +224,16 @@ main {
     background: var(--card-bg);
     border: 1px solid var(--border-color);
     border-radius: 12px;
-    padding: 12px;
+    padding: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     transition: var(--transition);
     position: relative;
-    height: 100%;
-    min-height: 120px;
+    width: 120px !important;
+    height: 120px !important;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    text-align: center;
 }
 
 .medication-card:hover {
@@ -244,12 +251,13 @@ main {
 .medication-name {
     font-weight: 500;
     color: var(--text-primary);
-    font-size: 0.75rem;
-    line-height: 1.1;
-    margin-bottom: 8px;
+    font-size: 0.65rem;
+    line-height: 1.0;
+    margin-bottom: 6px;
     flex: 1;
     display: flex;
     align-items: center;
+    justify-content: center;
     text-align: center;
     word-wrap: break-word;
     overflow-wrap: break-word;
@@ -260,20 +268,20 @@ main {
     align-items: center;
     justify-content: space-between;
     background: #f8f9fa;
-    border-radius: 8px;
+    border-radius: 6px;
     padding: 2px;
     border: 1px solid var(--border-color);
-    gap: 4px;
+    gap: 2px;
 }
 
 .quantity-btn {
-    width: 28px;
-    height: 28px;
+    width: 20px;
+    height: 20px;
     border: none;
     background: var(--primary-color);
     color: white;
-    border-radius: 6px;
-    font-size: 1rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
     font-weight: 600;
     cursor: pointer;
     transition: var(--transition);
@@ -303,8 +311,8 @@ main {
 .quantity-display {
     font-weight: 600;
     color: var(--text-primary);
-    font-size: 0.9rem;
-    min-width: 24px;
+    font-size: 0.8rem;
+    min-width: 16px;
     text-align: center;
 }
 
