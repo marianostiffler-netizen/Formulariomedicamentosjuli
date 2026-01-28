@@ -26,6 +26,9 @@ function initializeForm() {
     // Generar catálogo de medicamentos
     generateMedicationCatalog();
     
+    // Inicializar búsqueda
+    initializeSearch();
+    
     // Agregar evento de submit al formulario
     form.addEventListener('submit', handleFormSubmit);
     
@@ -34,6 +37,68 @@ function initializeForm() {
     
     // Agregar validación en tiempo real
     addRealTimeValidation();
+}
+
+// Inicializar búsqueda
+function initializeSearch() {
+    const searchInput = document.getElementById('searchInput');
+    const clearSearchBtn = document.getElementById('clearSearch');
+    
+    // Evento de búsqueda
+    searchInput.addEventListener('input', function(e) {
+        const searchTerm = e.target.value.toLowerCase().trim();
+        
+        // Mostrar/ocultar botón de limpiar
+        clearSearchBtn.style.display = searchTerm ? 'block' : 'none';
+        
+        // Filtrar medicamentos
+        filterMedications(searchTerm);
+    });
+    
+    // Evento de limpiar búsqueda
+    clearSearchBtn.addEventListener('click', function() {
+        searchInput.value = '';
+        clearSearchBtn.style.display = 'none';
+        filterMedications('');
+        searchInput.focus();
+    });
+}
+
+// Filtrar medicamentos
+function filterMedications(searchTerm) {
+    const grid = document.getElementById('medicationsGrid');
+    const cards = grid.querySelectorAll('.medication-card');
+    let visibleCount = 0;
+    
+    cards.forEach((card, index) => {
+        const medication = MEDICATIONS[index];
+        const isVisible = medication.toLowerCase().includes(searchTerm);
+        
+        if (isVisible) {
+            card.classList.remove('hidden');
+            visibleCount++;
+        } else {
+            card.classList.add('hidden');
+        }
+    });
+    
+    // Mostrar mensaje de no resultados
+    showNoResultsMessage(visibleCount === 0);
+}
+
+// Mostrar mensaje de no resultados
+function showNoResultsMessage(show) {
+    const grid = document.getElementById('medicationsGrid');
+    let noResultsMsg = grid.querySelector('.no-results');
+    
+    if (show && !noResultsMsg) {
+        noResultsMsg = document.createElement('div');
+        noResultsMsg.className = 'no-results';
+        noResultsMsg.textContent = 'No se encontraron medicamentos';
+        grid.appendChild(noResultsMsg);
+    } else if (!show && noResultsMsg) {
+        noResultsMsg.remove();
+    }
 }
 
 // Generar catálogo de medicamentos
@@ -66,7 +131,7 @@ function createMedicationCard(medication, index) {
     `;
     
     // Agregar animación escalonada
-    card.style.animationDelay = `${index * 0.02}s`;
+    card.style.animationDelay = `${index * 0.01}s`;
     
     return card;
 }
@@ -113,43 +178,26 @@ function updateQuantityDisplay(medication, index) {
 
 // Actualizar resumen del pedido
 function updateOrderSummary() {
-    const summarySection = document.getElementById('orderSummary');
-    const summaryContent = document.getElementById('summaryContent');
+    const floatingCart = document.getElementById('floatingCart');
+    const cartCount = document.getElementById('cartCount');
     
     // Obtener medicamentos con cantidad > 0
     const selectedMedications = Object.entries(medicationQuantities)
         .filter(([_, quantity]) => quantity > 0);
     
     if (selectedMedications.length === 0) {
-        summarySection.style.display = 'none';
+        floatingCart.style.display = 'none';
         return;
     }
     
-    // Mostrar sección de resumen
-    summarySection.style.display = 'block';
+    // Mostrar carrito flotante
+    floatingCart.style.display = 'flex';
     
-    // Generar HTML del resumen
-    let summaryHTML = '';
-    let totalItems = 0;
+    // Calcular total de items
+    const totalItems = selectedMedications.reduce((sum, [_, quantity]) => sum + quantity, 0);
     
-    selectedMedications.forEach(([medication, quantity]) => {
-        summaryHTML += `
-            <div class="summary-item">
-                <div class="summary-medication">${medication}</div>
-                <div class="summary-quantity">${quantity}</div>
-            </div>
-        `;
-        totalItems += quantity;
-    });
-    
-    summaryHTML += `
-        <div class="summary-total">
-            <span>Total de productos:</span>
-            <span>${totalItems}</span>
-        </div>
-    `;
-    
-    summaryContent.innerHTML = summaryHTML;
+    // Actualizar contador
+    cartCount.textContent = totalItems;
 }
 
 // Manejar el envío del formulario - Optimizado para velocidad
@@ -297,8 +345,13 @@ function resetForm() {
         updateQuantityDisplay(medication, index);
     });
     
-    // Ocultar resumen
-    document.getElementById('orderSummary').style.display = 'none';
+    // Ocultar carrito flotante
+    document.getElementById('floatingCart').style.display = 'none';
+    
+    // Limpiar búsqueda
+    document.getElementById('searchInput').value = '';
+    document.getElementById('clearSearch').style.display = 'none';
+    filterMedications('');
     
     // Limpiar validación
     const allFields = form.querySelectorAll('input, select, textarea');
@@ -309,14 +362,16 @@ function resetForm() {
 
 // Establecer estado de carga
 function setLoadingState(isLoading) {
+    const cartCheckoutBtn = document.querySelector('.cart-checkout-btn');
+    
     if (isLoading) {
-        submitBtn.disabled = true;
-        submitBtn.classList.add('loading');
-        submitBtn.innerHTML = '<span class="loading"></span>Enviando...';
+        cartCheckoutBtn.disabled = true;
+        cartCheckoutBtn.classList.add('loading');
+        cartCheckoutBtn.innerHTML = '<span class="loading"></span>Enviando...';
     } else {
-        submitBtn.disabled = false;
-        submitBtn.classList.remove('loading');
-        submitBtn.innerHTML = 'Enviar Pedido';
+        cartCheckoutBtn.disabled = false;
+        cartCheckoutBtn.classList.remove('loading');
+        cartCheckoutBtn.innerHTML = 'Enviar Pedido';
     }
 }
 

@@ -39,23 +39,26 @@
                 <!-- Catálogo de Medicamentos -->
                 <section class="form-section">
                     <h2>Catálogo de Medicamentos</h2>
+                    
+                    <!-- Barra de Búsqueda -->
+                    <div class="search-container">
+                        <input type="text" id="searchInput" placeholder="🔍 Buscar medicamento..." class="search-input">
+                        <button type="button" id="clearSearch" class="clear-search-btn" style="display: none;">✕</button>
+                    </div>
+                    
+                    <!-- Grilla de Medicamentos -->
                     <div class="medications-grid" id="medicationsGrid">
                         <!-- Las tarjetas de medicamentos se generarán dinámicamente con JavaScript -->
                     </div>
                 </section>
 
-                <!-- Resumen del Pedido -->
-                <section class="form-section" id="orderSummary" style="display: none;">
-                    <h2>Resumen del Pedido</h2>
-                    <div class="summary-content" id="summaryContent">
-                        <!-- El resumen se generará dinámicamente -->
+                <!-- Carrito Flotante -->
+                <div class="floating-cart" id="floatingCart" style="display: none;">
+                    <div class="cart-info">
+                        <span class="cart-count" id="cartCount">0</span>
+                        <span class="cart-text">productos</span>
                     </div>
-                </section>
-
-                <!-- Botones de acción -->
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-primary">Enviar Pedido</button>
-                    <button type="reset" class="btn btn-secondary">Limpiar Formulario</button>
+                    <button type="submit" class="cart-checkout-btn">Enviar Pedido</button>
                 </div>
             </form>
 
