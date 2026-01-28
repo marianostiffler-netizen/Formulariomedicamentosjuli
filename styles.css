@@ -205,35 +205,28 @@ main {
 }
 
 .container {
-    width: 95% !important;
-    max-width: 1100px !important; /* Esto evita que se estire en PC */
-    margin: 20px auto !important;
-    display: block !important;
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    padding: 20px;
 }
+
 #medications-grid { 
     display: grid !important; 
-    grid-template-columns: repeat(auto-fill, 120px) !important; 
-    gap: 15px !important; 
-    padding: 10px; 
-    justify-content: center !important;
+    grid-template-columns: repeat(auto-fill, 130px) !important; 
+    gap: 10px !important; 
+    justify-content: center !important; 
 }
 
-@media (max-width: 600px) { #medications-grid { grid-template-columns: repeat(2, 1fr) !important; /* 2 columnas en celu */ } }
-
 .medication-card {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-    transition: var(--transition);
-    position: relative;
-    width: 120px !important;
-    height: 120px !important;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    text-align: center;
+    width: 130px !important;
+    height: 140px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    padding: 10px !important;
+    border: 1px solid #ddd !important;
+    border-radius: 8px !important;
+    background: white !important;
 }
 
 .medication-card:hover {
@@ -251,7 +244,7 @@ main {
 .medication-name {
     font-weight: 500;
     color: var(--text-primary);
-    font-size: 0.65rem;
+    font-size: 0.8rem;
     line-height: 1.0;
     margin-bottom: 6px;
     flex: 1;
@@ -268,20 +261,20 @@ main {
     align-items: center;
     justify-content: space-between;
     background: #f8f9fa;
-    border-radius: 6px;
+    border-radius: 4px;
     padding: 2px;
-    border: 1px solid var(--border-color);
+    border: 1px solid #ddd;
     gap: 2px;
 }
 
 .quantity-btn {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     border: none;
     background: var(--primary-color);
     color: white;
-    border-radius: 4px;
-    font-size: 0.8rem;
+    border-radius: 3px;
+    font-size: 0.7rem;
     font-weight: 600;
     cursor: pointer;
     transition: var(--transition);
@@ -292,27 +285,11 @@ main {
     appearance: none;
 }
 
-.quantity-btn:hover {
-    background: var(--primary-dark);
-    transform: scale(1.05);
-}
-
-.quantity-btn:active {
-    transform: scale(0.95);
-}
-
-.quantity-btn:disabled {
-    background: var(--secondary-color);
-    opacity: 0.4;
-    cursor: not-allowed;
-    transform: none;
-}
-
 .quantity-display {
     font-weight: 600;
     color: var(--text-primary);
-    font-size: 0.8rem;
-    min-width: 16px;
+    font-size: 0.7rem;
+    min-width: 14px;
     text-align: center;
 }
 
