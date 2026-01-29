@@ -239,7 +239,7 @@ async function handleFormSubmit(event) {
         
         if (response.ok) {
             // Éxito inmediato
-            showMessage('¡Pedido enviado correctamente! Nos contactaremos pronto.', 'success');
+            showMessage('✔️ ¡Pedido enviado correctamente! Nos contactaremos pronto.', 'success');
             // Resetear formulario después de 2 segundos
             setTimeout(() => {
                 resetForm();
@@ -425,7 +425,7 @@ function handleFormReset() {
 // Agregar validación en tiempo real - Optimizado
 function addRealTimeValidation() {
     const fields = form.querySelectorAll('input, select, textarea');
-    
+
     fields.forEach(field => {
         // Validar al salir del campo (debounced)
         let timeout;
@@ -433,11 +433,12 @@ function addRealTimeValidation() {
             clearTimeout(timeout);
             timeout = setTimeout(() => validateField(field), 100);
         });
-        
+
         // Limpiar validación al empezar a editar
         field.addEventListener('input', function() {
             field.classList.remove('invalid');
             clearTimeout(timeout);
+            validatePositiveNumber(field);  // Add positive number validation
         });
     });
 }
@@ -478,6 +479,15 @@ function validateField(field) {
     }
     
     return isValid;
+}
+
+// Add real-time validation for positive numbers in quantity fields
+function validatePositiveNumber(field) {
+    if (field.type === 'number' && parseInt(field.value) < 1) {
+        field.setCustomValidity('Please enter a positive number.');
+    } else {
+        field.setCustomValidity('');
+    }
 }
 
 // Utilidad para formatear teléfono mientras se escribe

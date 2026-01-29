@@ -1,25 +1,116 @@
 :root {
     --primary: #004a99;
     --bg: #f8f9fa;
+    --shadow: rgba(0, 0, 0, 0.1);
 }
-body { font-family: sans-serif; background-color: var(--bg); margin: 0; padding: 20px; }
+body { 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    background-color: var(--bg); 
+    margin: 0; 
+    padding: 20px; 
+    box-sizing: border-box; 
+}
 
-.container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+.container { 
+    max-width: 1200px; 
+    margin: 0 auto; 
+    background: white; 
+    padding: 30px; 
+    border-radius: 15px; 
+    box-shadow: 0 4px 15px var(--shadow); 
+}
 
-h1, h2 { color: var(--primary); text-align: center; }
+h1, h2 { 
+    color: var(--primary); 
+    text-align: center; 
+}
 
-/* Buscador */ .search-container { margin: 20px 0; display: flex; justify-content: center; } #search-input { width: 100%; max-width: 500px; padding: 12px; border-radius: 25px; border: 1px solid #ddd; }
+/* Buscador */ 
+.search-container { 
+    margin: 20px 0; 
+    display: flex; 
+    justify-content: center; 
+} 
+#search-input { 
+    width: 100%; 
+    max-width: 500px; 
+    padding: 12px; 
+    border-radius: 25px; 
+    border: 1px solid #ddd; 
+}
 
-/* GRILLA DE 10 (Aprox) */ #medication-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 10px; margin-top: 20px; }
+/* GRILLA DE 10 (Aprox) */ 
+#medication-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); 
+    gap: 10px; 
+    margin-top: 20px; 
+}
 
-/* Tarjetas Pequeñas */ .medication-card { border: 1px solid #eee; border-radius: 10px; padding: 8px; text-align: center; background: #fff; display: flex; flex-direction: column; justify-content: space-between; min-height: 130px; }
+/* Tarjetas Pequeñas */ 
+.medication-card { 
+    border: 1px solid #eee; 
+    border-radius: 10px; 
+    padding: 8px; 
+    text-align: center; 
+    background: #fff; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-between; 
+    min-height: 130px; 
+}
 
-.medication-card h3 { font-size: 0.75rem; margin: 5px 0; height: 35px; overflow: hidden; }
+.medication-card h3 { 
+    font-size: 0.75rem; 
+    margin: 5px 0; 
+    height: 35px; 
+    overflow: hidden; 
+}
 
-.quantity-controls { display: flex; justify-content: center; align-items: center; gap: 5px; }
+.quantity-controls { 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    gap: 5px; 
+}
 
-.quantity-controls button { background: var(--primary); color: white; border: none; border-radius: 4px; width: 25px; height: 25px; cursor: pointer; }
+.quantity-controls button { 
+    background: var(--primary); 
+    color: white; 
+    border: none; 
+    border-radius: 4px; 
+    width: 25px; 
+    height: 25px; 
+    cursor: pointer; 
+}
 
-.quantity-controls span { font-weight: bold; font-size: 0.9rem; }
+.quantity-controls span { 
+    font-weight: bold; 
+    font-size: 0.9rem; 
+}
 
-/* Botón Enviar */ .submit-button { display: block; width: 100%; max-width: 300px; margin: 30px auto 0; padding: 15px; background: #28a745; color: white; border: none; border-radius: 10px; font-size: 1.1rem; cursor: pointer; }
+/* Botón Enviar */ 
+.submit-button { 
+    display: block; 
+    width: 100%; 
+    max-width: 300px; 
+    margin: 30px auto 0; 
+    padding: 15px; 
+    background: #28a745; 
+    color: white; 
+    border: none; 
+    border-radius: 10px; 
+    font-size: 1.1rem; 
+    cursor: pointer; 
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    .medication-card {
+        min-height: 100px;
+    }
+}
