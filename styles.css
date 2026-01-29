@@ -1,116 +1,89 @@
 :root {
-    --primary: #004a99;
-    --bg: #f8f9fa;
+    --primary-color: #2A9D8F;
+    --background: #f4f4f4;
+    --container-bg: #ffffff;
+    --font-family: 'Inter', 'Roboto', 'Poppins', sans-serif;
+    --text-color: #333333;
     --shadow: rgba(0, 0, 0, 0.1);
 }
+
 body { 
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-    background-color: var(--bg); 
+    font-family: var(--font-family); 
+    background-color: var(--background); 
+    color: var(--text-color);
     margin: 0; 
     padding: 20px; 
-    box-sizing: border-box; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
-.container { 
-    max-width: 1200px; 
-    margin: 0 auto; 
-    background: white; 
-    padding: 30px; 
-    border-radius: 15px; 
-    box-shadow: 0 4px 15px var(--shadow); 
+.form-container {
+    background: var(--container-bg);
+    border-radius: 16px;
+    box-shadow: 0 8px 20px var(--shadow);
+    max-width: 800px;
+    width: 100%;
+    padding: 40px;
 }
 
-h1, h2 { 
-    color: var(--primary); 
-    text-align: center; 
+h1, h2 {
+    margin-bottom: 20px;
+    color: var(--primary-color);
+    text-align: center;
 }
 
-/* Buscador */ 
-.search-container { 
-    margin: 20px 0; 
-    display: flex; 
-    justify-content: center; 
-} 
-#search-input { 
-    width: 100%; 
-    max-width: 500px; 
-    padding: 12px; 
-    border-radius: 25px; 
-    border: 1px solid #ddd; 
+.form-section {
+    margin-bottom: 30px;
 }
 
-/* GRILLA DE 10 (Aprox) */ 
-#medication-grid { 
-    display: grid; 
-    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); 
-    gap: 10px; 
-    margin-top: 20px; 
+.form-group {
+    margin-bottom: 15px;
 }
 
-/* Tarjetas Pequeñas */ 
-.medication-card { 
-    border: 1px solid #eee; 
-    border-radius: 10px; 
-    padding: 8px; 
-    text-align: center; 
-    background: #fff; 
-    display: flex; 
-    flex-direction: column; 
-    justify-content: space-between; 
-    min-height: 130px; 
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
 }
 
-.medication-card h3 { 
-    font-size: 0.75rem; 
-    margin: 5px 0; 
-    height: 35px; 
-    overflow: hidden; 
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"] {
+    width: 100%;
+    padding: 12px;
+    margin: 0;
+    border: 1px solid #cccccc;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
 }
 
-.quantity-controls { 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    gap: 5px; 
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+input[type="number"]:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(42, 157, 143, 0.1);
 }
 
-.quantity-controls button { 
-    background: var(--primary); 
-    color: white; 
-    border: none; 
-    border-radius: 4px; 
-    width: 25px; 
-    height: 25px; 
-    cursor: pointer; 
+.submit-button {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background: var(--primary-color);
+    color: white;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
 }
 
-.quantity-controls span { 
-    font-weight: bold; 
-    font-size: 0.9rem; 
-}
-
-/* Botón Enviar */ 
-.submit-button { 
-    display: block; 
-    width: 100%; 
-    max-width: 300px; 
-    margin: 30px auto 0; 
-    padding: 15px; 
-    background: #28a745; 
-    color: white; 
-    border: none; 
-    border-radius: 10px; 
-    font-size: 1.1rem; 
-    cursor: pointer; 
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .container {
-        padding: 15px;
-    }
-
-    .medication-card {
-        min-height: 100px;
-    }
+.submit-button:hover {
+    background: darkgreen;
+    transform: translateY(-3px);
 }
