@@ -106,7 +106,7 @@
 
 <div class="container mx-auto py-8">
     <h1 class="text-2xl font-bold">Realiza tu Pedido</h1>
-    <input type="text" id="search" placeholder="Buscar productos..." class="search-bar"/>
+    <input type="text" id="search" placeholder="Buscar productos..." class="search-bar" oninput="filterProducts()"/>
 
     <div class="grid">
         <!-- Example product card -->
@@ -114,10 +114,10 @@
             <h2 class="text-sm font-bold">ACTRON 400 R.A</h2>
             <p class="text-xs">Precio: $3,150.00</p>
             <div class="quantity-controls">
-            <input type="number" min="0" class="border p-1 w-full mt-2 quantity" data-price="3150" placeholder="Cantidad"/>
-        </div>
+                <input type="number" min="0" class="border p-1 w-full mt-2 quantity" data-price="3150" placeholder="Cantidad"/>
+            </div>
             <p class="mt-2 text-xs">Subtotal: <span class="subtotal">0</span></p>
-    </div>
+        </div>
     </div>
 </div>
 
@@ -170,4 +170,3 @@ document.getElementById('search').addEventListener('input', (event) => {
 </script>
 </body>
 </html>
-
