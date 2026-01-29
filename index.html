@@ -1,3 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedidos de Farmacia</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles */
+        body {
+            font-family: 'Inter', 'Roboto', sans-serif;
+        }
+        .product-card {
+            width: 150px;
+        }
+        #sendOrder {
+            background-color: #2d6a4f; /* Dark green */
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+<div class="container mx-auto py-8">
+    <h1 class="text-2xl font-bold mb-4">Realiza tu Pedido</h1>
+    <input type="text" id="search" placeholder="Buscar productos..." class="border p-2 mb-4 w-full"/>
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+        <!-- Example product card -->
+        <div class="bg-white p-4 rounded-lg shadow product-card">
+            <h2 class="text-sm font-bold">ACTRON 400 R.A</h2>
+            <p class="text-xs">Precio: $3,150.00</p>
+            <input type="number" min="0" class="border p-1 w-full mt-2 quantity" data-price="3150" placeholder="Cantidad"/>
+            <p class="mt-2 text-xs">Subtotal: <span class="subtotal">0</span></p>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <h2 class="text-xl font-bold">Total General: <span id="totalGeneral">0</span></h2>
+    </div>
+
+    <button id="sendOrder" class="text-white p-2 rounded mt-4 w-full max-w-md">Enviar Pedido</button>
+    <p id="confirmation" class="mt-4"></p>
+</div>
+
+<script>
 // app.js
 document.getElementById('sendOrder').addEventListener('click', () => {
     const quantities = document.querySelectorAll('.quantity');
@@ -34,3 +79,7 @@ document.getElementById('search').addEventListener('input', (event) => {
         card.style.display = productName.includes(searchTerm) ? '' : 'none';
     });
 });
+</script>
+</body>
+</html>
+
