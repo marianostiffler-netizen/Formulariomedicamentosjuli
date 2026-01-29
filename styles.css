@@ -12,11 +12,110 @@ body {
     background-color: var(--background); 
     color: var(--text-color);
     margin: 0; 
-    padding: 20px; 
+    min-height: 100vh;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+}
+
+.container {
+    padding: 20px;
+    flex: 1;
+}
+
+.search-bar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 8px;
+    background: var(--container-bg);
+    box-shadow: 0 2px 4px var(--shadow);
+    z-index: 1000;
+    box-sizing: border-box;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 16px;
+    padding-top: 60px; /* space for fixed search bar */
+}
+
+.card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 2px 4px var(--shadow);
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.card h2 {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 8px 0;
+}
+
+.card p {
+    font-size: 12px;
+    margin: 4px 0;
+}
+
+.quantity-controls {
+    display: flex;
     align-items: center;
-    height: 100vh;
+    justify-content: center;
+}
+
+.quantity-controls input {
+    width: 40px;
+    text-align: center;
+    margin: 0 4px;
+}
+
+.quantity-controls button {
+    border: none;
+    background-color: var(--background);
+    cursor: pointer;
+    padding: 4px 6px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.quantity-controls button:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.sticky-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    border-top: 1px solid #ddd;
+    box-shadow: 0 -2px 5px var(--shadow);
+    z-index: 1000;
+}
+
+.total-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+}
+
+#sendOrder {
+    background-color: #2d6a4f;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+#sendOrder:hover {
+    background-color: #245230;
 }
 
 .form-container {
