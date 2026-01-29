@@ -1,70 +1,25 @@
-/* Reset y Contenedor */
-.container {
-    width: 100% !important;
-    max-width: 1200px !important;
-    margin: 0 auto !important;
-    padding: 20px !important;
-    box-sizing: border-box !important;
+:root {
+    --primary: #004a99;
+    --bg: #f8f9fa;
 }
+body { font-family: sans-serif; background-color: var(--bg); margin: 0; padding: 20px; }
 
-/* Buscador centrado y ancho */ 
-.search-container { 
-    width: 100% !important; 
-    margin-bottom: 30px !important; 
-    display: flex !important; 
-    justify-content: center !important; 
-}
+.container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
 
-#search-input { 
-    width: 80% !important; 
-    padding: 12px !important; 
-    border-radius: 25px !important; 
-    border: 1px solid #ccc !important; 
-}
+h1, h2 { color: var(--primary); text-align: center; }
 
-/* LA GRILLA: Aquí forzamos las columnas */ 
-#medication-grid { 
-    display: grid !important; 
-    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)) !important; 
-    gap: 15px !important; 
-    width: 100% !important; 
-}
+/* Buscador */ .search-container { margin: 20px 0; display: flex; justify-content: center; } #search-input { width: 100%; max-width: 500px; padding: 12px; border-radius: 25px; border: 1px solid #ddd; }
 
-/* La Tarjeta: Cuadrada y prolija */ 
-.medication-card { 
-    background: white !important; 
-    border: 1px solid #eaeaea !important; 
-    border-radius: 12px !important; 
-    padding: 10px !important; 
-    display: flex !important; 
-    flex-direction: column !important; 
-    align-items: center !important; 
-    justify-content: space-between !important; 
-    text-align: center !important; 
-    aspect-ratio: 1 / 1 !important; /* La hace cuadrada */ 
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05) !important; 
-}
+/* GRILLA DE 10 (Aprox) */ #medication-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 10px; margin-top: 20px; }
 
-.medication-card h3 { 
-    font-size: 0.85rem !important; 
-    margin: 0 0 10px 0 !important; 
-    height: 40px !important; 
-    overflow: hidden !important; 
-}
+/* Tarjetas Pequeñas */ .medication-card { border: 1px solid #eee; border-radius: 10px; padding: 8px; text-align: center; background: #fff; display: flex; flex-direction: column; justify-content: space-between; min-height: 130px; }
 
-/* Controles de cantidad */ 
-.quantity-controls { 
-    display: flex !important; 
-    align-items: center !important; 
-    gap: 8px !important; 
-}
+.medication-card h3 { font-size: 0.75rem; margin: 5px 0; height: 35px; overflow: hidden; }
 
-.quantity-controls button { 
-    width: 28px !important; 
-    height: 28px !important; 
-    border-radius: 50% !important; 
-    border: none !important; 
-    background: #004a99 !important; 
-    color: white !important; 
-    cursor: pointer !important; 
-}
+.quantity-controls { display: flex; justify-content: center; align-items: center; gap: 5px; }
+
+.quantity-controls button { background: var(--primary); color: white; border: none; border-radius: 4px; width: 25px; height: 25px; cursor: pointer; }
+
+.quantity-controls span { font-weight: bold; font-size: 0.9rem; }
+
+/* Botón Enviar */ .submit-button { display: block; width: 100%; max-width: 300px; margin: 30px auto 0; padding: 15px; background: #28a745; color: white; border: none; border-radius: 10px; font-size: 1.1rem; cursor: pointer; }
