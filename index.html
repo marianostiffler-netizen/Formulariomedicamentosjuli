@@ -1,15 +1,36 @@
-To integrate the provided Google Apps Script (`Code.gs`) functionality into your HTML page, you need to make a few adjustments to handle form submissions via HTTP POST requests to a web app created in Google Apps Script. The backend script will handle the order data submission.
+// app.js
+document.getElementById('sendOrder').addEventListener('click', () => {
+    const quantities = document.querySelectorAll('.quantity');
+    const data = [];
+    let totalGeneral = 0;
 
-Here’s how you can modify and integrate the HTML and JS to use the provided `doPost` function:
+    quantities.forEach(quantityInput => {
+        const quantity = parseInt(quantityInput.value) || 0;
+        const price = parseFloat(quantityInput.dataset.price);
+        const subtotal = quantity * price;
+        if (quantity > 0) {
+            data.push({
+                product: quantityInput.closest('.bg-white').querySelector('h2').innerText,
+                quantity,
+                subtotal
+            });
+        }
+        totalGeneral += subtotal;
+    });
 
-1. **Set up the Google Apps Script (`Code.gs`):**
+    document.getElementById('totalGeneral').innerText = totalGeneral;
 
-   Make sure to replace `'YOUR_SHEET_ID'` with your actual Google Sheets ID.
+    document.getElementById('confirmation').innerText = 'Pedido procesado localmente.';
 
-To integrate the provided Google Apps Script (`Code.gs`) functionality into your HTML page, you need to make a few adjustments to handle form submissions via HTTP POST requests to a web app created in Google Apps Script. The backend script will handle the order data submission.
+    console.log('Pedido:', data);
+});
 
-Here’s how you can modify and integrate the HTML and JS to use the provided `doPost` function:
+document.getElementById('search').addEventListener('input', (event) => {
+    const searchTerm = event.target.value.toLowerCase();
+    const productCards = document.querySelectorAll('.bg-white');
 
-1. **Set up the Google Apps Script (`Code.gs`):**
-
-   Make sure to replace `'YOUR_SHEET_ID'` with your actual Google Sheets ID.
+    productCards.forEach(card => {
+        const productName = card.querySelector('h2').innerText.toLowerCase();
+        card.style.display = productName.includes(searchTerm) ? '' : 'none';
+    });
+});
