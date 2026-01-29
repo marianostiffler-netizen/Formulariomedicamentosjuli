@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario de Pedidos de Medicamentos</title>
+    <title>Formulario de Pedidos de Medicamentos y Catálogo</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -13,6 +13,7 @@
         </header>
         
         <main>
+            <!-- Formulario de Pedido de Medicamentos -->
             <form id="orderForm">
                 <section class="form-section">
                     <h2>Información del Paciente</h2>
@@ -50,6 +51,65 @@
                 </section>
                 <button type="submit" class="submit-button">Enviar Pedido</button>
             </form>
+
+            <!-- Catálogo de Medicamentos -->
+            <section class="catalog-container">
+                <header>
+                    <h1>Catálogo de Medicamentos</h1>
+                </header>
+
+                <table class="medicamentos-table">
+                    <thead>
+                        <tr>
+                            <th>Cantidad</th>
+                            <th>Nombre</th>
+                            <th>Precio</th>
+                            <th>Agregar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Ejemplo de filas, reemplace con sus datos -->
+                        <tr>
+                            <td>X 10</td>
+                            <td>ACTRON 400 R.A</td>
+                            <td>$3,150.00</td>
+                            <td><button class="add-button">Agregar</button></td>
+                        </tr>
+                        <!-- Más filas aquí... -->
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
+            <section class="catalog-container">
+                <header>
+                    <h1>Catálogo de Medicamentos</h1>
+                </header>
+
+                <table class="medicamentos-table">
+                    <thead>
+                        <tr>
+                            <th>Cantidad</th>
+                            <th>Nombre</th>
+                            <th>Precio</th>
+                            <th>Agregar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Ejemplo de filas, reemplace con sus datos -->
+                        <tr>
+                            <td>X 10</td>
+                            <td>ACTRON 400 R.A</td>
+                            <td>$3,150.00</td>
+                            <td><button class="add-button">Agregar</button></td>
+                        </tr>
+                        <!-- Más filas aquí... -->
+                    </tbody>
+                </table>
+            </section>
         </main>
     </div>
     <script src="app.js"></script>
