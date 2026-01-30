@@ -1,96 +1,9 @@
 // Variables globales
 const GOOGLE_SCRIPTS_URL = 'https://script.google.com/macros/s/TU_SCRIPT_ID_AQUI/exec'; // Reemplazar con tu URL
+const GOOGLE_SHEETS_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRGkcrXq1qz_W83RDzBZRB2dLgCBQ5eitedXZpAtSQblhCU4OG1WCNehilXhDy_QLjBlGcjBHH0u660/pub?output=csv';
 
-// Lista completa de medicamentos con precios
-const MEDICATIONS_WITH_PRICES = [
-    { name: "ACTRON 400 R.A", price: 3150 },
-    { name: "ACTRON 600", price: 7290 },
-    { name: "ACTRON MUJER", price: 3400 },
-    { name: "AGUA OXIGENADA 10V", price: 450 },
-    { name: "ALCOHOL 250cc", price: 680 },
-    { name: "ALIKAL", price: 750 },
-    { name: "ALIKAL LIMON", price: 750 },
-    { name: "ALIKAL NARANJA", price: 750 },
-    { name: "ANAFLEX PLUS", price: 2960 },
-    { name: "ASPIRINETAS", price: 910 },
-    { name: "AZUFRE", price: 320 },
-    { name: "Amoxicilina FABOP", price: 1750 },
-    { name: "BAYA C", price: 1040 },
-    { name: "BAYA C Caliente", price: 1420 },
-    { name: "BAYASPIRINA", price: 1820 },
-    { name: "BAYASPIRINA FORTE", price: 2370 },
-    { name: "BICARBONATO", price: 280 },
-    { name: "BUSCAPINA COMPUESTA", price: 7870 },
-    { name: "BUSCAPINA DUO", price: 7420 },
-    { name: "BUSCAPINA FEM", price: 3290 },
-    { name: "BUSCAPINA PERLAS", price: 5590 },
-    { name: "BX7", price: 1250 },
-    { name: "CAFIASPIRINA PLUS", price: 2580 },
-    { name: "CAFIASPIRINA X 30", price: 2150 },
-    { name: "CARBON", price: 630 },
-    { name: "CURITAS", price: 450 },
-    { name: "DICLO + PRIDINOL", price: 950 },
-    { name: "DICLOFENAC 75 mg", price: 720 },
-    { name: "DORIXINA", price: 2600 },
-    { name: "FEEN A MINT", price: 3680 },
-    { name: "FUEGOLANDIA", price: 890 },
-    { name: "GASAS", price: 320 },
-    { name: "GENIOL 1Gr", price: 1810 },
-    { name: "GENIOL 500mg", price: 1350 },
-    { name: "GENIOL PLUS Rap. Acc.", price: 2440 },
-    { name: "HEPATALGINA", price: 4340 },
-    { name: "HEPATALGINA GOTAS", price: 6310 },
-    { name: "IBUEVANOL FORTE", price: 2830 },
-    { name: "IBUEVANOL MAX", price: 3420 },
-    { name: "IBUEVANOL PLUS", price: 2350 },
-    { name: "IBUEVANOL RAP. ACC.", price: 2150 },
-    { name: "IBUPIRAC", price: 2430 },
-    { name: "IBUPIRAC 600", price: 6090 },
-    { name: "IBUPIRAC MIGRA", price: 6610 },
-    { name: "IBUPIRETA JR.", price: 4260 },
-    { name: "IBUPROFENO 400 mg. TRB", price: 650 },
-    { name: "IBUPROFENO 600 mg. TRB", price: 940 },
-    { name: "KETEROLAC", price: 700 },
-    { name: "KETEROLAC SUBLINGUAL", price: 600 },
-    { name: "LORATADINA", price: 600 },
-    { name: "MANTECA DE CACAO", price: 380 },
-    { name: "MEJORAL P NIÑOS", price: 2690 },
-    { name: "MIGRAL COMP.", price: 4420 },
-    { name: "MYLANTA", price: 3320 },
-    { name: "NEXT PLUS", price: 3470 },
-    { name: "NOVALGINA", price: 6450 },
-    { name: "OMEPRAZOL", price: 870 },
-    { name: "PARACETAMOL", price: 650 },
-    { name: "PARACETAMOL 1GR", price: 890 },
-    { name: "PAÑUELOS DESCARTABLES", price: 280 },
-    { name: "PAÑUELOS ELITE 6X10", price: 520 },
-    { name: "PONSTIL FORTE", price: 3850 },
-    { name: "QURA PLUS", price: 2180 },
-    { name: "REFENAX GOTAS NASALES", price: 980 },
-    { name: "REFRIANEX", price: 1240 },
-    { name: "RENNIE", price: 1560 },
-    { name: "RESAQUIT", price: 1820 },
-    { name: "SERTAL CTO", price: 2890 },
-    { name: "SERTAL PERLAS", price: 3240 },
-    { name: "SUERO FISIOLOGICO", price: 420 },
-    { name: "TAFIROL", price: 780 },
-    { name: "TAFIROL 1 G", price: 1120 },
-    { name: "TAFIROL DUO", price: 1450 },
-    { name: "TAFIROL FORTE", price: 1680 },
-    { name: "TAFIROL MIGRA", price: 2340 },
-    { name: "TAFIROL PLUS", price: 1890 },
-    { name: "TARROS", price: 350 },
-    { name: "TE NEXT", price: 920 },
-    { name: "TE NEXT PLUS", price: 1180 },
-    { name: "TE VENT3", price: 850 },
-    { name: "TE VENT3 PLUS", price: 1080 },
-    { name: "TE VICK", price: 780 },
-    { name: "TE VICK FORTE", price: 960 },
-    { name: "TETRALGIN", price: 1420 },
-    { name: "UVASAL", price: 680 },
-    { name: "UVASAL LIM", price: 680 },
-    { name: "UVASAL NJA", price: 680 }
-];
+// Lista de medicamentos (se cargará dinámicamente)
+let MEDICATIONS_WITH_PRICES = [];
 
 // Cache DOM elements
 let form, messageContainer, messageContent;
@@ -103,14 +16,14 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Inicializar el formulario
-function initializeForm() {
+async function initializeForm() {
     // Cache elements para mejor rendimiento
     form = document.getElementById('orderForm');
     messageContainer = document.getElementById('messageContainer');
     messageContent = document.getElementById('messageContent');
     
-    // Generar catálogo de medicamentos con precios
-    generateMedicationCatalog();
+    // Cargar medicamentos desde Google Sheets
+    await loadMedicationsFromGoogleSheets();
     
     // Inicializar búsqueda
     initializeSearch();
@@ -123,6 +36,205 @@ function initializeForm() {
     
     // Agregar validación en tiempo real
     addRealTimeValidation();
+}
+
+// Cargar medicamentos desde Google Sheets CSV
+async function loadMedicationsFromGoogleSheets() {
+    try {
+        // Mostrar estado de carga
+        showMessage('Cargando inventario...', 'loading');
+        
+        const response = await fetch(GOOGLE_SHEETS_CSV_URL);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const csvText = await response.text();
+        
+        // Parsear CSV
+        const medications = parseCSV(csvText);
+        
+        if (medications.length === 0) {
+            throw new Error('No se encontraron medicamentos en el inventario');
+        }
+        
+        // Actualizar lista global
+        MEDICATIONS_WITH_PRICES = medications;
+        
+        // Generar catálogo
+        generateMedicationCatalog();
+        
+        // Ocultar mensaje de carga
+        hideMessage();
+        
+        console.log(`Se cargaron ${medications.length} medicamentos exitosamente`);
+        
+    } catch (error) {
+        console.error('Error al cargar medicamentos:', error);
+        
+        // Mostrar mensaje de error
+        showMessage('Error al conectar con el inventario', 'error');
+        
+        // Cargar medicamentos de respaldo
+        loadFallbackMedications();
+    }
+}
+
+// Parsear CSV a array de objetos
+function parseCSV(csvText) {
+    const lines = csvText.split('\n').filter(line => line.trim());
+    const medications = [];
+    
+    // Omitir header si existe
+    const startIndex = lines[0].toLowerCase().includes('medicamento') || lines[0].toLowerCase().includes('producto') ? 1 : 0;
+    
+    for (let i = startIndex; i < lines.length; i++) {
+        const line = lines[i].trim();
+        if (!line) continue;
+        
+        // Parsear línea CSV (manejar comillas)
+        const fields = parseCSVLine(line);
+        
+        if (fields.length >= 2) {
+            const name = fields[0].trim();
+            const priceStr = fields[1].trim();
+            const price = parseFloat(priceStr.replace(/[^\d.,]/g, '').replace(',', '.'));
+            
+            if (name && !isNaN(price) && price > 0) {
+                medications.push({
+                    name: name,
+                    price: price
+                });
+            }
+        }
+    }
+    
+    return medications;
+}
+
+// Parsear línea CSV individual (manejar comillas)
+function parseCSVLine(line) {
+    const result = [];
+    let current = '';
+    let inQuotes = false;
+    
+    for (let i = 0; i < line.length; i++) {
+        const char = line[i];
+        
+        if (char === '"') {
+            inQuotes = !inQuotes;
+        } else if (char === ',' && !inQuotes) {
+            result.push(current.trim());
+            current = '';
+        } else {
+            current += char;
+        }
+    }
+    
+    result.push(current.trim());
+    return result;
+}
+
+// Cargar medicamentos de respaldo
+function loadFallbackMedications() {
+    MEDICATIONS_WITH_PRICES = [
+        { name: "ACTRON 400 R.A", price: 3150 },
+        { name: "ACTRON 600", price: 7290 },
+        { name: "ACTRON MUJER", price: 3400 },
+        { name: "AGUA OXIGENADA 10V", price: 450 },
+        { name: "ALCOHOL 250cc", price: 680 },
+        { name: "ALIKAL", price: 750 },
+        { name: "ALIKAL LIMON", price: 750 },
+        { name: "ALIKAL NARANJA", price: 750 },
+        { name: "ANAFLEX PLUS", price: 2960 },
+        { name: "ASPIRINETAS", price: 910 },
+        { name: "AZUFRE", price: 320 },
+        { name: "Amoxicilina FABOP", price: 1750 },
+        { name: "BAYA C", price: 1040 },
+        { name: "BAYA C Caliente", price: 1420 },
+        { name: "BAYASPIRINA", price: 1820 },
+        { name: "BAYASPIRINA FORTE", price: 2370 },
+        { name: "BICARBONATO", price: 280 },
+        { name: "BUSCAPINA COMPUESTA", price: 7870 },
+        { name: "BUSCAPINA DUO", price: 7420 },
+        { name: "BUSCAPINA FEM", price: 3290 },
+        { name: "BUSCAPINA PERLAS", price: 5590 },
+        { name: "BX7", price: 1250 },
+        { name: "CAFIASPIRINA PLUS", price: 2580 },
+        { name: "CAFIASPIRINA X 30", price: 2150 },
+        { name: "CARBON", price: 630 },
+        { name: "CURITAS", price: 450 },
+        { name: "DICLO + PRIDINOL", price: 950 },
+        { name: "DICLOFENAC 75 mg", price: 720 },
+        { name: "DORIXINA", price: 2600 },
+        { name: "FEEN A MINT", price: 3680 },
+        { name: "FUEGOLANDIA", price: 890 },
+        { name: "GASAS", price: 320 },
+        { name: "GENIOL 1Gr", price: 1810 },
+        { name: "GENIOL 500mg", price: 1350 },
+        { name: "GENIOL PLUS Rap. Acc.", price: 2440 },
+        { name: "HEPATALGINA", price: 4340 },
+        { name: "HEPATALGINA GOTAS", price: 6310 },
+        { name: "IBUEVANOL FORTE", price: 2830 },
+        { name: "IBUEVANOL MAX", price: 3420 },
+        { name: "IBUEVANOL PLUS", price: 2350 },
+        { name: "IBUEVANOL RAP. ACC.", price: 2150 },
+        { name: "IBUPIRAC", price: 2430 },
+        { name: "IBUPIRAC 600", price: 6090 },
+        { name: "IBUPIRAC MIGRA", price: 6610 },
+        { name: "IBUPIRETA JR.", price: 4260 },
+        { name: "IBUPROFENO 400 mg. TRB", price: 650 },
+        { name: "IBUPROFENO 600 mg. TRB", price: 940 },
+        { name: "KETEROLAC", price: 700 },
+        { name: "KETEROLAC SUBLINGUAL", price: 600 },
+        { name: "LORATADINA", price: 600 },
+        { name: "MANTECA DE CACAO", price: 380 },
+        { name: "MEJORAL P NIÑOS", price: 2690 },
+        { name: "MIGRAL COMP.", price: 4420 },
+        { name: "MYLANTA", price: 3320 },
+        { name: "NEXT PLUS", price: 3470 },
+        { name: "NOVALGINA", price: 6450 },
+        { name: "OMEPRAZOL", price: 870 },
+        { name: "PARACETAMOL", price: 650 },
+        { name: "PARACETAMOL 1GR", price: 890 },
+        { name: "PAÑUELOS DESCARTABLES", price: 280 },
+        { name: "PAÑUELOS ELITE 6X10", price: 520 },
+        { name: "PONSTIL FORTE", price: 3850 },
+        { name: "QURA PLUS", price: 2180 },
+        { name: "REFENAX GOTAS NASALES", price: 980 },
+        { name: "REFRIANEX", price: 1240 },
+        { name: "RENNIE", price: 1560 },
+        { name: "RESAQUIT", price: 1820 },
+        { name: "SERTAL CTO", price: 2890 },
+        { name: "SERTAL PERLAS", price: 3240 },
+        { name: "SUERO FISIOLOGICO", price: 420 },
+        { name: "TAFIROL", price: 780 },
+        { name: "TAFIROL 1 G", price: 1120 },
+        { name: "TAFIROL DUO", price: 1450 },
+        { name: "TAFIROL FORTE", price: 1680 },
+        { name: "TAFIROL MIGRA", price: 2340 },
+        { name: "TAFIROL PLUS", price: 1890 },
+        { name: "TARROS", price: 350 },
+        { name: "TE NEXT", price: 920 },
+        { name: "TE NEXT PLUS", price: 1180 },
+        { name: "TE VENT3", price: 850 },
+        { name: "TE VENT3 PLUS", price: 1080 },
+        { name: "TE VICK", price: 780 },
+        { name: "TE VICK FORTE", price: 960 },
+        { name: "TETRALGIN", price: 1420 },
+        { name: "UVASAL", price: 680 },
+        { name: "UVASAL LIM", price: 680 },
+        { name: "UVASAL NJA", price: 680 }
+    ];
+    
+    // Generar catálogo con datos de respaldo
+    generateMedicationCatalog();
+    
+    // Ocultar mensaje de error después de 3 segundos
+    setTimeout(() => {
+        hideMessage();
+    }, 3000);
 }
 
 // Inicializar búsqueda
