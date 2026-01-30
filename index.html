@@ -3,23 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FARMACIA NEUTRON - Formulario Profesional</title>
     <link rel="stylesheet" href="styles.css">
-    <title>Formulario de Medicamentos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>Formulario de Medicamentos</h1>
-    <form id="medicamentos-form">
-        <label for="nombre">Nombre del Medicamento:</label>
-        <input type="text" id="nombre" name="nombre" required>
+    <div class="app-container">
+        <!-- Header Minimalista -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="neutron-symbol">⚛</div>
+                    <h1>FARMACIA NEUTRON</h1>
+                </div>
+                <div class="header-subtitle">Sistema de Pedidos Farmacéuticos</div>
+            </div>
+        </header>
 
-        <label for="dosis">Dosis:</label>
-        <input type="text" id="dosis" name="dosis" required>
+        <!-- Main Content -->
+        <main class="main-content">
+            <form id="orderForm" class="order-form">
+                <!-- Sección Datos del Paciente -->
+                <section class="form-section">
+                    <h2 class="section-title">Datos del Solicitante</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="patientName">Nombre Completo *</label>
+                            <input type="text" id="patientName" name="patientName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="patientDNI">DNI *</label>
+                            <input type="text" id="patientDNI" name="patientDNI" required maxlength="8">
+                        </div>
+                        <div class="form-group">
+                            <label for="patientPhone">Teléfono *</label>
+                            <input type="tel" id="patientPhone" name="patientPhone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="patientEmail">Email</label>
+                            <input type="email" id="patientEmail" name="patientEmail">
+                        </div>
+                    </div>
+                </section>
 
-        <label for="frecuencia">Frecuencia:</label>
-        <input type="text" id="frecuencia" name="frecuencia" required>
+                <!-- Sección Catálogo de Medicamentos -->
+                <section class="form-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Catálogo de Medicamentos</h2>
+                        <div class="search-container">
+                            <input type="text" id="searchInput" placeholder="Buscar medicamento..." class="search-input">
+                            <button type="button" id="clearSearch" class="clear-search" style="display: none;">✕</button>
+                        </div>
+                    </div>
+                    
+                    <div id="medicationsGrid" class="medications-grid">
+                        <!-- Las tarjetas de medicamentos se generarán dinámicamente -->
+                    </div>
+                </section>
 
-        <button type="submit">Enviar</button>
-    </form>
-    <script src="api/submit-order.js"></script>
+                <!-- Resumen del Pedido -->
+                <div id="floatingCart" class="floating-cart" style="display: none;">
+                    <div class="cart-content">
+                        <div class="cart-info">
+                            <span class="cart-label">Resumen del Pedido</span>
+                            <span id="cartCount" class="cart-count">0</span>
+                        </div>
+                        <button type="submit" class="cart-checkout-btn">Enviar Pedido</button>
+                    </div>
+                </div>
+
+                <!-- Mensajes -->
+                <div id="messageContainer" class="message-container" style="display: none;">
+                    <div id="messageContent" class="message-content"></div>
+                </div>
+            </form>
+        </main>
+
+        <!-- Footer Minimalista -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>&copy; 2024 FARMACIA NEUTRON - Todos los derechos reservados</p>
+                <p>Sistema profesional de gestión farmacéutica</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
 </body>
 </html>

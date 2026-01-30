@@ -1,5 +1,5 @@
 // Variables globales
-const API_ENDPOINT = '/api/submit-order';
+const GOOGLE_SCRIPTS_URL = 'https://script.google.com/macros/s/TU_SCRIPT_ID_AQUI/exec'; // Reemplazar con tu URL
 
 // Lista completa de medicamentos
 const MEDICATIONS = [
@@ -200,7 +200,7 @@ function updateOrderSummary() {
     cartCount.textContent = totalItems;
 }
 
-// Manejar el envío del formulario - Optimizado para velocidad
+// Manejar el envío del formulario - Optimizado para Google Sheets
 async function handleFormSubmit(event) {
     event.preventDefault();
     
@@ -215,52 +215,42 @@ async function handleFormSubmit(event) {
     
     // Mostrar estado de carga inmediato
     setLoadingState(true);
-    showMessage('Enviando pedido...', 'loading');
-    
-    // Timeout para evitar esperas infinitas
-    const timeoutPromise = new Promise((_, reject) => 
-        setTimeout(() => reject(new Error('Tiempo de espera agotado')), 10000)
-    );
+    showMessage('Enviando pedido a Google Sheets...', 'loading');
     
     try {
-        // Enviar datos a la API con timeout
-        const response = await Promise.race([
-            fetch(API_ENDPOINT, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData)
-            }),
-            timeoutPromise
-        ]);
+        // Enviar datos a Google Apps Script
+        const response = await fetch(GOOGLE_SCRIPTS_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+            mode: 'no-cors' // Necesario para Google Apps Script
+        });
         
-        const result = await response.json();
+        showMessage('✅ ¡Pedido enviado correctamente a Google Sheets! Nos contactaremos pronto.', 'success');
         
-        if (response.ok) {
-            // Éxito inmediato
-            showMessage('✔️ ¡Pedido enviado correctamente! Nos contactaremos pronto.', 'success');
-            // Resetear formulario después de 2 segundos
-            setTimeout(() => {
-                resetForm();
-                hideMessage();
-            }, 2000);
-        } else {
-            // Error del servidor
-            throw new Error(result.message || 'Error al enviar el pedido');
-        }
+        // Resetear formulario después de 2 segundos
+        setTimeout(() => {
+            resetForm();
+            hideMessage();
+        }, 2000);
         
     } catch (error) {
         console.error('Error:', error);
-        let errorMessage = 'Error de conexión. Intente nuevamente.';
         
-        if (error.message === 'Tiempo de espera agotado') {
-            errorMessage = 'El servidor está tardando demasiado. Intente nuevamente.';
-        } else if (error.message) {
-            errorMessage = error.message;
-        }
+        // Fallback: mostrar datos para copiar manualmente
+        const fallbackData = {
+            ...formData,
+            timestamp: new Date().toLocaleString('es-AR'),
+            status: 'manual_copy'
+        };
         
-        showMessage(errorMessage, 'error');
+        showMessage(`❌ Error de conexión. Por favor, copia estos datos y envialos manualmente:\n\n${JSON.stringify(fallbackData, null, 2)}`, 'error');
+        
+        // También guardar en localStorage como backup
+        localStorage.setItem('pendingOrder', JSON.stringify(fallbackData));
+        
     } finally {
         // Restaurar estado del botón
         setLoadingState(false);
@@ -304,7 +294,7 @@ function validateForm() {
     return isValid;
 }
 
-// Obtener datos del formulario - Optimizado
+// Obtener datos del formulario - Optimizado para Google Sheets
 function getFormData() {
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
@@ -312,6 +302,8 @@ function getFormData() {
     // Agregar metadata
     data.timestamp = new Date().toISOString();
     data.orderId = generateOrderId();
+    data.date = new Date().toLocaleDateString('es-AR');
+    data.time = new Date().toLocaleTimeString('es-AR');
     
     // Agregar medicamentos seleccionados (solo los que tienen cantidad > 0)
     const selectedMedications = Object.entries(medicationQuantities)
@@ -320,15 +312,29 @@ function getFormData() {
     
     data.medicamentos = selectedMedications.join(', ');
     data.totalItems = selectedMedications.length;
+    data.totalQuantity = Object.values(medicationQuantities).reduce((sum, qty) => sum + qty, 0);
     
-    return data;
+    // Formatear para Google Sheets (columnas específicas)
+    return {
+        orderId: data.orderId,
+        fecha: data.date,
+        hora: data.time,
+        nombre: data.patientName || '',
+        dni: data.patientDNI || '',
+        telefono: data.patientPhone || '',
+        email: data.patientEmail || '',
+        medicamentos: data.medicamentos,
+        totalItems: data.totalItems,
+        totalUnidades: data.totalQuantity,
+        timestamp: data.timestamp
+    };
 }
 
 // Generar ID único para el pedido
 function generateOrderId() {
     const timestamp = Date.now();
     const random = Math.floor(Math.random() * 1000);
-    return `ORD-${timestamp}-${random}`;
+    return `NEUTRON-${timestamp}-${random}`;
 }
 
 // Resetear formulario completamente
@@ -381,10 +387,10 @@ function isValidEmail(email) {
     return emailRegex.test(email);
 }
 
-// Validar teléfono
-function isValidPhone(phone) {
-    const phoneRegex = /^[\d\s\-\+\(\)]+$/;
-    return phoneRegex.test(phone) && phone.replace(/\D/g, '').length >= 8;
+// Validar DNI
+function isValidDNI(dni) {
+    const dniRegex = /^\d{7,8}$/;
+    return dniRegex.test(dni);
 }
 
 // Mostrar mensaje - Optimizado
