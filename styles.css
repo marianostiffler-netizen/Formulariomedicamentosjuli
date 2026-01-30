@@ -48,3 +48,16 @@ h1 {
     background-color: #fff3cd;
     color: #856404;
 }
+
+#medicinesContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+}
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+}
