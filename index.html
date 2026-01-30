@@ -1,69 +1,25 @@
-asd<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Farmacia - Sistema de Pedidos</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+    <title>Formulario de Medicamentos</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>🏥 Sistema de Pedidos - Farmacia</h1>
-            <p class="subtitle">Selecciona los medicamentos que deseas pedir</p>
-        </header>
-
-        <main>
-            <form id="orderForm">
-                <fieldset>
-                    <legend>Datos del Cliente</legend>
-                    
-                    <div class="form-group">
-                        <label for="clientName">Nombre del Cliente *</label>
-                        <input type="text" id="clientName" name="clientName" required placeholder="Tu nombre completo">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="clientPhone">Teléfono *</label>
-                        <input type="tel" id="clientPhone" name="clientPhone" required placeholder="\+54 9 ...">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="clientEmail">Email</label>
-                        <input type="email" id="clientEmail" name="clientEmail" placeholder="tu@email.com">
-                    </div>
-                </fieldset>
-
-                <fieldset>
-                    <legend>Selecciona Medicamentos</legend>
-                    
-                    <div id="medicinesContainer" class="medicines-grid">
-                        <!-- Se llenarán dinámicamente con JavaScript -->
-                    </div>
-                </fieldset>
-
-                <fieldset>
-                    <legend>Resumen del Pedido</legend>
-                    <div id="orderSummary" class="order-summary">
-                        <p>No hay medicamentos seleccionados</p>
-                    </div>
-                </fieldset>
-
-                <div class="form-actions">
-                    <button type="submit" class="btn-primary">Enviar Pedido</button>
-                    <button type="reset" class="btn-secondary">Limpiar Formulario</button>
-                </div>
-
-                <div id="submitMessage" class="message"></div>
-            </form>
-        </main>
-
-        <footer>
-            <p>&copy; 2026 Sistema de Pedidos Farmacia. Todos los derechos reservados.</p>
-        </footer>
-    </div>
-
+    <h1>Formulario de Medicamentos</h1>
+    <div id="medicinesContainer"></div>
+    <div id="orderSummary"></div>
+    <form id="orderForm">
+        <label for="clientName">Nombre:</label>
+        <input type="text" id="clientName" required>
+        <label for="clientPhone">Teléfono:</label>
+        <input type="text" id="clientPhone" required>
+        <label for="clientEmail">Email:</label>
+        <input type="email" id="clientEmail" required>
+        <button type="submit">Enviar Pedido</button>
+    </form>
+    <div id="submitMessage" class="message"></div>
     <script src="app.js"></script>
 </body>
 </html>

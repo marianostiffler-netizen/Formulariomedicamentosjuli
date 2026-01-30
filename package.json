@@ -24,6 +24,7 @@
     "serve": "^14.2.1"
   },
   "dependencies": {
+    "express": "^5.2.1",
     "google-spreadsheet": "^3.3.0"
   }
 }

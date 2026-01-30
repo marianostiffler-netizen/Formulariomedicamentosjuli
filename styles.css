@@ -1,188 +1,50 @@
-:root {
-    --primary-color: #2A9D8F;
-    --background: #f4f4f4;
-    --container-bg: #ffffff;
-    --font-family: 'Inter', 'Roboto', 'Poppins', sans-serif;
-    --text-color: #333333;
-    --shadow: rgba(0, 0, 0, 0.1);
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
 }
 
-body { 
-    font-family: var(--font-family); 
-    background-color: var(--background); 
-    color: var(--text-color);
-    margin: 0; 
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+h1 {
+    color: #333;
 }
 
-.container {
-    padding: 20px;
-    flex: 1;
-}
-
-.search-bar {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    padding: 8px;
-    background: var(--container-bg);
-    box-shadow: 0 2px 4px var(--shadow);
-    z-index: 1000;
-    box-sizing: border-box;
-}
-
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 16px;
-    padding-top: 60px; /* space for fixed search bar */
-}
-
-.card {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+.medicine-card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
     padding: 10px;
-    box-shadow: 0 2px 4px var(--shadow);
-    transition: box-shadow 0.3s ease-in-out;
-}
-
-.card h2 {
-    font-size: 14px;
-    font-weight: bold;
-    margin: 8px 0;
-}
-
-.card p {
-    font-size: 12px;
-    margin: 4px 0;
-}
-
-.quantity-controls {
+    margin: 10px 0;
     display: flex;
     align-items: center;
-    justify-content: center;
 }
 
-.quantity-controls input {
-    width: 40px;
-    text-align: center;
-    margin: 0 4px;
+.medicine-name {
+    margin-left: 10px;
 }
 
-.quantity-controls button {
-    border: none;
-    background-color: var(--background);
-    cursor: pointer;
-    padding: 4px 6px;
-    border-radius: 4px;
-    transition: background-color 0.3s;
+.selected {
+    background-color: #e0f7fa;
 }
 
-.quantity-controls button:hover {
-    background-color: var(--primary-color);
-    color: white;
+.medicine-quantity {
+    margin-left: auto;
 }
 
-.sticky-footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: #fff;
-    border-top: 1px solid #ddd;
-    box-shadow: 0 -2px 5px var(--shadow);
-    z-index: 1000;
+.message {
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 5px;
 }
 
-.total-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 16px;
+.message.success {
+    background-color: #d4edda;
+    color: #155724;
 }
 
-#sendOrder {
-    background-color: #2d6a4f;
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease-in-out;
+.message.error {
+    background-color: #f8d7da;
+    color: #721c24;
 }
 
-#sendOrder:hover {
-    background-color: #245230;
-}
-
-.form-container {
-    background: var(--container-bg);
-    border-radius: 16px;
-    box-shadow: 0 8px 20px var(--shadow);
-    max-width: 800px;
-    width: 100%;
-    padding: 40px;
-}
-
-h1, h2 {
-    margin-bottom: 20px;
-    color: var(--primary-color);
-    text-align: center;
-}
-
-.form-section {
-    margin-bottom: 30px;
-}
-
-.form-group {
-    margin-bottom: 15px;
-}
-
-.form-group label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 8px;
-}
-
-input[type="text"],
-input[type="email"],
-input[type="tel"],
-input[type="number"] {
-    width: 100%;
-    padding: 12px;
-    margin: 0;
-    border: 1px solid #cccccc;
-    border-radius: 8px;
-    font-size: 16px;
-    transition: border-color 0.3s ease;
-}
-
-input[type="text"]:focus,
-input[type="email"]:focus,
-input[type="tel"]:focus,
-input[type="number"]:focus {
-    outline: none;
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 2px rgba(42, 157, 143, 0.1);
-}
-
-.submit-button {
-    display: block;
-    width: 100%;
-    padding: 15px;
-    background: var(--primary-color);
-    color: white;
-    font-size: 18px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background 0.3s ease, transform 0.3s ease;
-}
-
-.submit-button:hover {
-    background: darkgreen;
-    transform: translateY(-3px);
+.message.loading {
+    background-color: #fff3cd;
+    color: #856404;
 }
