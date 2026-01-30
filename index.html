@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FARMACIA NEUTRON - Formulario Profesional</title>
+    <title>FARMA RÁPIDO - Tu Farmacia de Venta Libre</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,23 +11,23 @@
 </head>
 <body>
     <div class="app-container">
-        <!-- Header Minimalista -->
+        <!-- Header con Logo de Rayo -->
         <header class="header">
             <div class="header-content">
                 <div class="logo">
-                    <div class="neutron-symbol">⚛</div>
-                    <h1>FARMACIA NEUTRON</h1>
+                    <div class="lightning-logo">⚡</div>
+                    <h1>FARMA RÁPIDO</h1>
                 </div>
-                <div class="header-subtitle">Sistema de Pedidos Farmacéuticos</div>
+                <div class="header-subtitle">Medicamentos de Venta Libre - Precios Competitivos</div>
             </div>
         </header>
 
         <!-- Main Content -->
         <main class="main-content">
             <form id="orderForm" class="order-form">
-                <!-- Sección Datos del Paciente -->
+                <!-- Sección Datos del Cliente -->
                 <section class="form-section">
-                    <h2 class="section-title">Datos del Solicitante</h2>
+                    <h2 class="section-title">Datos del Cliente</h2>
                     <div class="form-grid">
                         <div class="form-group">
                             <label for="patientName">Nombre Completo *</label>
@@ -48,7 +48,7 @@
                     </div>
                 </section>
 
-                <!-- Sección Catálogo de Medicamentos -->
+                <!-- Catálogo con Precios -->
                 <section class="form-section">
                     <div class="section-header">
                         <h2 class="section-title">Catálogo de Medicamentos</h2>
@@ -58,17 +58,40 @@
                         </div>
                     </div>
                     
+                    <!-- Resumen del Carrito -->
+                    <div id="cartSummary" class="cart-summary">
+                        <div class="cart-header">
+                            <h3>🛒 Tu Carrito</h3>
+                            <div class="cart-totals">
+                                <div class="total-items">
+                                    <span>Items:</span>
+                                    <span id="totalItemsCount">0</span>
+                                </div>
+                                <div class="total-price">
+                                    <span>Total:</span>
+                                    <span id="totalPrice">$0.00</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="cartItems" class="cart-items">
+                            <!-- Items del carrito se mostrarán aquí -->
+                        </div>
+                    </div>
+                    
                     <div id="medicationsGrid" class="medications-grid">
                         <!-- Las tarjetas de medicamentos se generarán dinámicamente -->
                     </div>
                 </section>
 
-                <!-- Resumen del Pedido -->
+                <!-- Botón de Envío -->
                 <div id="floatingCart" class="floating-cart" style="display: none;">
                     <div class="cart-content">
                         <div class="cart-info">
                             <span class="cart-label">Resumen del Pedido</span>
-                            <span id="cartCount" class="cart-count">0</span>
+                            <div class="cart-details">
+                                <span id="cartCount" class="cart-count">0</span>
+                                <span id="cartTotal" class="cart-total">$0.00</span>
+                            </div>
                         </div>
                         <button type="submit" class="cart-checkout-btn">Enviar Pedido</button>
                     </div>
@@ -81,11 +104,11 @@
             </form>
         </main>
 
-        <!-- Footer Minimalista -->
+        <!-- Footer -->
         <footer class="footer">
             <div class="footer-content">
-                <p>&copy; 2024 FARMACIA NEUTRON - Todos los derechos reservados</p>
-                <p>Sistema profesional de gestión farmacéutica</p>
+                <p>&copy; 2024 FARMA RÁPIDO - Todos los derechos reservados</p>
+                <p>Medicamentos de venta libre con delivery rápido</p>
             </div>
         </footer>
     </div>

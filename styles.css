@@ -1,22 +1,22 @@
-/* Variables de Color Minimalista Negro */
+/* Variables de Color Beige y Tierra */
 :root {
-    --primary-black: #000000;
-    --secondary-black: #0a0a0a;
-    --dark-gray: #1a1a1a;
-    --medium-gray: #2a2a2a;
-    --light-gray: #3a3a3a;
-    --border-gray: #4a4a4a;
-    --text-primary: #ffffff;
-    --text-secondary: #b0b0b0;
-    --text-muted: #808080;
-    --accent-blue: #0066cc;
-    --accent-green: #00a86b;
-    --accent-red: #dc3545;
-    --neutron-color: #00d4ff;
-    --shadow-dark: rgba(0, 0, 0, 0.8);
-    --shadow-medium: rgba(0, 0, 0, 0.6);
-    --shadow-light: rgba(0, 0, 0, 0.4);
-    --border-radius: 8px;
+    --primary-beige: #f5e6d3;
+    --secondary-beige: #ede1d1;
+    --light-beige: #faf5f0;
+    --dark-beige: #d4c4b0;
+    --accent-brown: #8b7355;
+    --text-primary: #3a3a3a;
+    --text-secondary: #5a5a5a;
+    --text-muted: #7a7a7a;
+    --accent-yellow: #f39c12;
+    --accent-green: #27ae60;
+    --accent-red: #e74c3c;
+    --lightning-color: #f39c12;
+    --shadow-light: rgba(139, 115, 85, 0.1);
+    --shadow-medium: rgba(139, 115, 85, 0.2);
+    --shadow-dark: rgba(139, 115, 85, 0.3);
+    --border-color: #d4c4b0;
+    --border-radius: 12px;
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -29,10 +29,10 @@
 
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: var(--primary-black);
+    background: linear-gradient(135deg, var(--primary-beige) 0%, var(--secondary-beige) 100%);
     color: var(--text-primary);
     line-height: 1.6;
-    overflow-x: hidden;
+    min-height: 100vh;
 }
 
 .app-container {
@@ -41,14 +41,15 @@ body {
     flex-direction: column;
 }
 
-/* Header Minimalista */
+/* Header con Logo de Rayo */
 .header {
-    background: linear-gradient(135deg, var(--secondary-black) 0%, var(--dark-gray) 100%);
-    border-bottom: 1px solid var(--border-gray);
+    background: linear-gradient(135deg, var(--accent-brown) 0%, #6b5a45 100%);
+    border-bottom: 2px solid var(--lightning-color);
     position: sticky;
     top: 0;
     z-index: 100;
     backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px var(--shadow-medium);
 }
 
 .header-content {
@@ -66,28 +67,30 @@ body {
     margin-bottom: 0.5rem;
 }
 
-.neutron-symbol {
-    font-size: 2rem;
-    color: var(--neutron-color);
-    animation: pulse 2s infinite;
+.lightning-logo {
+    font-size: 2.5rem;
+    color: var(--lightning-color);
+    animation: lightning 2s infinite;
+    text-shadow: 0 0 10px rgba(243, 156, 18, 0.5);
 }
 
-@keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.6; }
+@keyframes lightning {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(1.1); }
 }
 
 .logo h1 {
-    font-size: 1.8rem;
+    font-size: 2rem;
     font-weight: 700;
-    color: var(--text-primary);
+    color: white;
     letter-spacing: 0.05em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .header-subtitle {
-    color: var(--text-secondary);
+    color: rgba(255, 255, 255, 0.9);
     font-size: 0.9rem;
-    font-weight: 300;
+    font-weight: 400;
     letter-spacing: 0.1em;
     text-transform: uppercase;
 }
@@ -104,22 +107,22 @@ body {
 .order-form {
     display: flex;
     flex-direction: column;
-    gap: 3rem;
+    gap: 2.5rem;
 }
 
 /* Secciones del Formulario */
 .form-section {
-    background: var(--secondary-black);
-    border: 1px solid var(--border-gray);
+    background: white;
+    border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
     padding: 2rem;
-    box-shadow: 0 4px 20px var(--shadow-dark);
+    box-shadow: 0 8px 30px var(--shadow-light);
 }
 
 .section-title {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     font-weight: 600;
-    color: var(--text-primary);
+    color: var(--accent-brown);
     margin-bottom: 1.5rem;
     display: flex;
     align-items: center;
@@ -129,8 +132,8 @@ body {
 .section-title::before {
     content: '';
     width: 4px;
-    height: 20px;
-    background: var(--neutron-color);
+    height: 24px;
+    background: var(--lightning-color);
     border-radius: 2px;
 }
 
@@ -158,15 +161,15 @@ body {
 .form-group label {
     color: var(--text-secondary);
     font-size: 0.9rem;
-    font-weight: 500;
+    font-weight: 600;
     margin-bottom: 0.5rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
 }
 
 .form-group input {
-    background: var(--dark-gray);
-    border: 1px solid var(--border-gray);
+    background: var(--light-beige);
+    border: 2px solid var(--border-color);
     color: var(--text-primary);
     padding: 0.8rem 1rem;
     border-radius: var(--border-radius);
@@ -176,8 +179,9 @@ body {
 
 .form-group input:focus {
     outline: none;
-    border-color: var(--neutron-color);
-    box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.1);
+    border-color: var(--lightning-color);
+    box-shadow: 0 0 0 3px rgba(243, 156, 18, 0.1);
+    background: white;
 }
 
 .form-group input::placeholder {
@@ -191,8 +195,8 @@ body {
 }
 
 .search-input {
-    background: var(--dark-gray);
-    border: 1px solid var(--border-gray);
+    background: var(--light-beige);
+    border: 2px solid var(--border-color);
     color: var(--text-primary);
     padding: 0.8rem 2.5rem 0.8rem 1rem;
     border-radius: var(--border-radius);
@@ -203,8 +207,9 @@ body {
 
 .search-input:focus {
     outline: none;
-    border-color: var(--neutron-color);
-    box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.1);
+    border-color: var(--lightning-color);
+    box-shadow: 0 0 0 3px rgba(243, 156, 18, 0.1);
+    background: white;
 }
 
 .clear-search {
@@ -227,13 +232,133 @@ body {
 }
 
 .clear-search:hover {
-    background: #b02a37;
+    background: #c0392b;
 }
 
-/* Grid de Medicamentos */
+/* Carrito de Compras */
+.cart-summary {
+    background: linear-gradient(135deg, var(--light-beige) 0%, white 100%);
+    border: 2px solid var(--lightning-color);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 15px var(--shadow-light);
+}
+
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.cart-header h3 {
+    color: var(--accent-brown);
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.cart-totals {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.total-items, .total-price {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.total-items span:first-child,
+.total-price span:first-child {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.total-items span:last-child,
+.total-price span:last-child {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.total-price span:last-child {
+    color: var(--accent-green);
+    font-size: 1.3rem;
+}
+
+.cart-items {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem;
+    background: white;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    border: 1px solid var(--border-color);
+}
+
+.cart-item-name {
+    font-weight: 500;
+    color: var(--text-primary);
+    flex: 1;
+}
+
+.cart-item-details {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.cart-item-quantity {
+    background: var(--accent-brown);
+    color: white;
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.cart-item-price {
+    font-weight: 700;
+    color: var(--accent-green);
+}
+
+.cart-item-remove {
+    background: var(--accent-red);
+    border: none;
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    transition: var(--transition);
+}
+
+.cart-item-remove:hover {
+    background: #c0392b;
+}
+
+/* Grid de Medicamentos con Precios */
 .medications-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 1.5rem;
     animation: fadeIn 0.6s ease-out;
 }
@@ -244,13 +369,14 @@ body {
 }
 
 .medication-card {
-    background: var(--dark-gray);
-    border: 1px solid var(--border-gray);
+    background: white;
+    border: 2px solid var(--border-color);
     border-radius: var(--border-radius);
     padding: 1.5rem;
     transition: var(--transition);
     position: relative;
     overflow: hidden;
+    box-shadow: 0 4px 15px var(--shadow-light);
 }
 
 .medication-card::before {
@@ -259,8 +385,8 @@ body {
     top: 0;
     left: 0;
     right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--neutron-color), transparent);
+    height: 3px;
+    background: linear-gradient(90deg, var(--lightning-color), var(--accent-yellow));
     transform: translateX(-100%);
     transition: transform 0.3s ease;
 }
@@ -270,21 +396,34 @@ body {
 }
 
 .medication-card:hover {
-    border-color: var(--neutron-color);
+    border-color: var(--lightning-color);
     box-shadow: 0 8px 25px var(--shadow-medium);
-    transform: translateY(-2px);
+    transform: translateY(-4px);
 }
 
 .medication-card.hidden {
     display: none;
 }
 
+.medication-price {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: var(--accent-green);
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 700;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    box-shadow: 0 2px 8px rgba(39, 174, 96, 0.3);
+}
+
 .quantity-badge {
     position: absolute;
     top: 1rem;
     right: 1rem;
-    background: var(--neutron-color);
-    color: var(--primary-black);
+    background: var(--lightning-color);
+    color: var(--text-primary);
     font-size: 0.8rem;
     font-weight: 600;
     padding: 0.3rem 0.6rem;
@@ -302,12 +441,19 @@ body {
 }
 
 .medication-name {
-    font-size: 0.95rem;
-    font-weight: 500;
+    font-size: 1rem;
+    font-weight: 600;
     color: var(--text-primary);
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     line-height: 1.4;
-    padding-right: 2rem;
+    padding-right: 4rem;
+}
+
+.medication-description {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    line-height: 1.3;
 }
 
 .quantity-selector {
@@ -315,46 +461,49 @@ body {
     align-items: center;
     gap: 0.8rem;
     justify-content: center;
+    margin-top: 1rem;
 }
 
 .quantity-btn {
-    background: var(--medium-gray);
-    border: 1px solid var(--border-gray);
-    color: var(--text-primary);
-    width: 36px;
-    height: 36px;
+    background: var(--accent-brown);
+    border: 2px solid var(--accent-brown);
+    color: white;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     font-weight: 600;
     transition: var(--transition);
 }
 
 .quantity-btn:hover:not(:disabled) {
-    background: var(--light-gray);
-    border-color: var(--neutron-color);
+    background: var(--lightning-color);
+    border-color: var(--lightning-color);
+    transform: scale(1.1);
 }
 
 .quantity-btn:disabled {
-    opacity: 0.3;
+    opacity: 0.4;
     cursor: not-allowed;
+    transform: scale(1);
 }
 
 .quantity-display {
-    background: var(--secondary-black);
-    border: 1px solid var(--border-gray);
+    background: var(--light-beige);
+    border: 2px solid var(--border-color);
     color: var(--text-primary);
-    min-width: 50px;
-    height: 36px;
+    min-width: 60px;
+    height: 40px;
     border-radius: var(--border-radius);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: 600;
-    font-size: 1rem;
+    font-weight: 700;
+    font-size: 1.1rem;
 }
 
 /* Carrito Flotante */
@@ -362,8 +511,8 @@ body {
     position: fixed;
     bottom: 2rem;
     right: 2rem;
-    background: var(--secondary-black);
-    border: 1px solid var(--neutron-color);
+    background: white;
+    border: 2px solid var(--lightning-color);
     border-radius: var(--border-radius);
     padding: 1rem 1.5rem;
     box-shadow: 0 8px 30px var(--shadow-dark);
@@ -395,16 +544,28 @@ body {
     letter-spacing: 0.05em;
 }
 
+.cart-details {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
 .cart-count {
-    color: var(--neutron-color);
+    color: var(--accent-brown);
     font-size: 1.5rem;
     font-weight: 700;
 }
 
+.cart-total {
+    color: var(--accent-green);
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
 .cart-checkout-btn {
-    background: linear-gradient(135deg, var(--accent-green), #00d4ff);
+    background: linear-gradient(135deg, var(--accent-green), #2ecc71);
     border: none;
-    color: var(--primary-black);
+    color: white;
     padding: 0.8rem 1.5rem;
     border-radius: var(--border-radius);
     font-weight: 600;
@@ -413,21 +574,23 @@ body {
     text-transform: uppercase;
     letter-spacing: 0.05em;
     font-size: 0.9rem;
+    box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
 }
 
 .cart-checkout-btn:hover:not(:disabled) {
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+    box-shadow: 0 6px 20px rgba(39, 174, 96, 0.4);
 }
 
 .cart-checkout-btn:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+    transform: none;
 }
 
 .cart-checkout-btn.loading {
-    background: var(--medium-gray);
-    color: var(--text-muted);
+    background: var(--text-muted);
+    color: white;
 }
 
 /* Mensajes */
@@ -481,14 +644,15 @@ body {
 
 /* Footer */
 .footer {
-    background: var(--secondary-black);
-    border-top: 1px solid var(--border-gray);
+    background: var(--accent-brown);
+    border-top: 2px solid var(--lightning-color);
     padding: 2rem;
     text-align: center;
+    margin-top: auto;
 }
 
 .footer-content p {
-    color: var(--text-muted);
+    color: white;
     font-size: 0.9rem;
     margin-bottom: 0.5rem;
 }
@@ -496,7 +660,7 @@ body {
 /* Estados de Validación */
 .form-group input.invalid {
     border-color: var(--accent-red);
-    box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.1);
+    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
 }
 
 /* Loading Spinner */
@@ -505,7 +669,7 @@ body {
     width: 16px;
     height: 16px;
     border: 2px solid var(--text-muted);
-    border-top: 2px solid var(--neutron-color);
+    border-top: 2px solid var(--lightning-color);
     border-radius: 50%;
     animation: spin 1s linear infinite;
     margin-right: 0.5rem;

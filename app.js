@@ -1,14 +1,101 @@
 // Variables globales
 const GOOGLE_SCRIPTS_URL = 'https://script.google.com/macros/s/TU_SCRIPT_ID_AQUI/exec'; // Reemplazar con tu URL
 
-// Lista completa de medicamentos
-const MEDICATIONS = [
-    "ACTRON 400 R.A","ACTRON 600","ACTRON MUJER","AGUA OXIGENADA 10V","ALCOHOL 250cc","ALIKAL","ALIKAL LIMON","ALIKAL NARANJA","ANAFLEX PLUS","ASPIRINETAS","AZUFRE","Amoxicilina FABOP","BAYA C","BAYA C Caliente","BAYASPIRINA","BAYASPIRINA FORTE","BICARBONATO","BUSCAPINA COMPUESTA","BUSCAPINA DUO","BUSCAPINA FEM","BUSCAPINA PERLAS","BX7","CAFIASPIRINA PLUS","CAFIASPIRINA X 30","CARBON","CURITAS","DICLO + PRIDINOL","DICLOFENAC 75 mg","DORIXINA","FEEN A MINT","FUEGOLANDIA","GASAS","GENIOL 1Gr","GENIOL 500mg","GENIOL PLUS Rap. Acc.","HEPATALGINA","HEPATALGINA GOTAS","IBUEVANOL FORTE","IBUEVANOL MAX","IBUEVANOL PLUS","IBUEVANOL RAP. ACC.","IBUPIRAC","IBUPIRAC 600","IBUPIRAC MIGRA","IBUPIRETA JR.","IBUPROFENO 400 mg. TRB","IBUPROFENO 600 mg. TRB","KETEROLAC","KETEROLAC SUBLINGUAL","LORATADINA","MANTECA DE CACAO","MEJORAL P NIÑOS","MIGRAL COMP.","MYLANTA","NEXT PLUS","NOVALGINA","OMEPRAZOL","PARACETAMOL","PARACETAMOL 1GR","PAÑUELOS DESCARTABLES","PAÑUELOS ELITE 6X10","PONSTIL FORTE","QURA PLUS","REFENAX GOTAS NASALES","REFRIANEX","RENNIE","RESAQUIT","SERTAL CTO","SERTAL PERLAS","SUERO FISIOLOGICO","TAFIROL","TAFIROL 1 G","TAFIROL DUO","TAFIROL FORTE","TAFIROL MIGRA","TAFIROL PLUS","TARROS","TE NEXT","TE NEXT PLUS","TE VENT3","TE VENT3 PLUS","TE VICK","TE VICK FORTE","TETRALGIN","UVASAL","UVASAL LIM","UVASAL NJA"
+// Lista completa de medicamentos con precios
+const MEDICATIONS_WITH_PRICES = [
+    { name: "ACTRON 400 R.A", price: 3150 },
+    { name: "ACTRON 600", price: 7290 },
+    { name: "ACTRON MUJER", price: 3400 },
+    { name: "AGUA OXIGENADA 10V", price: 450 },
+    { name: "ALCOHOL 250cc", price: 680 },
+    { name: "ALIKAL", price: 750 },
+    { name: "ALIKAL LIMON", price: 750 },
+    { name: "ALIKAL NARANJA", price: 750 },
+    { name: "ANAFLEX PLUS", price: 2960 },
+    { name: "ASPIRINETAS", price: 910 },
+    { name: "AZUFRE", price: 320 },
+    { name: "Amoxicilina FABOP", price: 1750 },
+    { name: "BAYA C", price: 1040 },
+    { name: "BAYA C Caliente", price: 1420 },
+    { name: "BAYASPIRINA", price: 1820 },
+    { name: "BAYASPIRINA FORTE", price: 2370 },
+    { name: "BICARBONATO", price: 280 },
+    { name: "BUSCAPINA COMPUESTA", price: 7870 },
+    { name: "BUSCAPINA DUO", price: 7420 },
+    { name: "BUSCAPINA FEM", price: 3290 },
+    { name: "BUSCAPINA PERLAS", price: 5590 },
+    { name: "BX7", price: 1250 },
+    { name: "CAFIASPIRINA PLUS", price: 2580 },
+    { name: "CAFIASPIRINA X 30", price: 2150 },
+    { name: "CARBON", price: 630 },
+    { name: "CURITAS", price: 450 },
+    { name: "DICLO + PRIDINOL", price: 950 },
+    { name: "DICLOFENAC 75 mg", price: 720 },
+    { name: "DORIXINA", price: 2600 },
+    { name: "FEEN A MINT", price: 3680 },
+    { name: "FUEGOLANDIA", price: 890 },
+    { name: "GASAS", price: 320 },
+    { name: "GENIOL 1Gr", price: 1810 },
+    { name: "GENIOL 500mg", price: 1350 },
+    { name: "GENIOL PLUS Rap. Acc.", price: 2440 },
+    { name: "HEPATALGINA", price: 4340 },
+    { name: "HEPATALGINA GOTAS", price: 6310 },
+    { name: "IBUEVANOL FORTE", price: 2830 },
+    { name: "IBUEVANOL MAX", price: 3420 },
+    { name: "IBUEVANOL PLUS", price: 2350 },
+    { name: "IBUEVANOL RAP. ACC.", price: 2150 },
+    { name: "IBUPIRAC", price: 2430 },
+    { name: "IBUPIRAC 600", price: 6090 },
+    { name: "IBUPIRAC MIGRA", price: 6610 },
+    { name: "IBUPIRETA JR.", price: 4260 },
+    { name: "IBUPROFENO 400 mg. TRB", price: 650 },
+    { name: "IBUPROFENO 600 mg. TRB", price: 940 },
+    { name: "KETEROLAC", price: 700 },
+    { name: "KETEROLAC SUBLINGUAL", price: 600 },
+    { name: "LORATADINA", price: 600 },
+    { name: "MANTECA DE CACAO", price: 380 },
+    { name: "MEJORAL P NIÑOS", price: 2690 },
+    { name: "MIGRAL COMP.", price: 4420 },
+    { name: "MYLANTA", price: 3320 },
+    { name: "NEXT PLUS", price: 3470 },
+    { name: "NOVALGINA", price: 6450 },
+    { name: "OMEPRAZOL", price: 870 },
+    { name: "PARACETAMOL", price: 650 },
+    { name: "PARACETAMOL 1GR", price: 890 },
+    { name: "PAÑUELOS DESCARTABLES", price: 280 },
+    { name: "PAÑUELOS ELITE 6X10", price: 520 },
+    { name: "PONSTIL FORTE", price: 3850 },
+    { name: "QURA PLUS", price: 2180 },
+    { name: "REFENAX GOTAS NASALES", price: 980 },
+    { name: "REFRIANEX", price: 1240 },
+    { name: "RENNIE", price: 1560 },
+    { name: "RESAQUIT", price: 1820 },
+    { name: "SERTAL CTO", price: 2890 },
+    { name: "SERTAL PERLAS", price: 3240 },
+    { name: "SUERO FISIOLOGICO", price: 420 },
+    { name: "TAFIROL", price: 780 },
+    { name: "TAFIROL 1 G", price: 1120 },
+    { name: "TAFIROL DUO", price: 1450 },
+    { name: "TAFIROL FORTE", price: 1680 },
+    { name: "TAFIROL MIGRA", price: 2340 },
+    { name: "TAFIROL PLUS", price: 1890 },
+    { name: "TARROS", price: 350 },
+    { name: "TE NEXT", price: 920 },
+    { name: "TE NEXT PLUS", price: 1180 },
+    { name: "TE VENT3", price: 850 },
+    { name: "TE VENT3 PLUS", price: 1080 },
+    { name: "TE VICK", price: 780 },
+    { name: "TE VICK FORTE", price: 960 },
+    { name: "TETRALGIN", price: 1420 },
+    { name: "UVASAL", price: 680 },
+    { name: "UVASAL LIM", price: 680 },
+    { name: "UVASAL NJA", price: 680 }
 ];
 
 // Cache DOM elements
-let form, submitBtn, messageContainer, messageContent;
+let form, messageContainer, messageContent;
 let medicationQuantities = {};
+let cartItems = [];
 
 // Esperar a que el DOM esté completamente cargado
 document.addEventListener('DOMContentLoaded', function() {
@@ -19,11 +106,10 @@ document.addEventListener('DOMContentLoaded', function() {
 function initializeForm() {
     // Cache elements para mejor rendimiento
     form = document.getElementById('orderForm');
-    submitBtn = form.querySelector('[type="submit"]');
     messageContainer = document.getElementById('messageContainer');
     messageContent = document.getElementById('messageContent');
     
-    // Generar catálogo de medicamentos
+    // Generar catálogo de medicamentos con precios
     generateMedicationCatalog();
     
     // Inicializar búsqueda
@@ -71,8 +157,8 @@ function filterMedications(searchTerm) {
     let visibleCount = 0;
     
     cards.forEach((card, index) => {
-        const medication = MEDICATIONS[index];
-        const isVisible = medication.toLowerCase().includes(searchTerm);
+        const medication = MEDICATIONS_WITH_PRICES[index];
+        const isVisible = medication.name.toLowerCase().includes(searchTerm);
         
         if (isVisible) {
             card.classList.remove('hidden');
@@ -101,32 +187,34 @@ function showNoResultsMessage(show) {
     }
 }
 
-// Generar catálogo de medicamentos
+// Generar catálogo de medicamentos con precios
 function generateMedicationCatalog() {
     const grid = document.getElementById('medicationsGrid');
     
-    MEDICATIONS.forEach((medication, index) => {
+    MEDICATIONS_WITH_PRICES.forEach((medication, index) => {
         const card = createMedicationCard(medication, index);
         grid.appendChild(card);
         
         // Inicializar cantidad en 0
-        medicationQuantities[medication] = 0;
+        medicationQuantities[medication.name] = 0;
     });
 }
 
-// Crear tarjeta de medicamento
+// Crear tarjeta de medicamento con precio
 function createMedicationCard(medication, index) {
     const card = document.createElement('div');
     card.className = 'medication-card';
     card.id = `med-${index}`;
     
     card.innerHTML = `
+        <div class="medication-price">$${medication.price.toLocaleString('es-AR')}</div>
         <div class="quantity-badge" id="badge-${index}">0</div>
-        <div class="medication-name">${medication}</div>
+        <div class="medication-name">${medication.name}</div>
+        <div class="medication-description">Medicamento de venta libre</div>
         <div class="quantity-selector">
-            <button type="button" class="quantity-btn" onclick="decreaseQuantity('${medication}', ${index})" id="decrease-${index}" disabled>-</button>
+            <button type="button" class="quantity-btn" onclick="decreaseQuantity('${medication.name}', ${index})" id="decrease-${index}" disabled>-</button>
             <div class="quantity-display" id="quantity-${index}">0</div>
-            <button type="button" class="quantity-btn" onclick="increaseQuantity('${medication}', ${index})" id="increase-${index}">+</button>
+            <button type="button" class="quantity-btn" onclick="increaseQuantity('${medication.name}', ${index})" id="increase-${index}">+</button>
         </div>
     `;
     
@@ -137,26 +225,29 @@ function createMedicationCard(medication, index) {
 }
 
 // Incrementar cantidad
-function increaseQuantity(medication, index) {
-    medicationQuantities[medication]++;
-    updateQuantityDisplay(medication, index);
+function increaseQuantity(medicationName, index) {
+    medicationQuantities[medicationName]++;
+    updateQuantityDisplay(medicationName, index);
+    updateCartSummary();
 }
 
 // Decrementar cantidad
-function decreaseQuantity(medication, index) {
-    if (medicationQuantities[medication] > 0) {
-        medicationQuantities[medication]--;
-        updateQuantityDisplay(medication, index);
+function decreaseQuantity(medicationName, index) {
+    if (medicationQuantities[medicationName] > 0) {
+        medicationQuantities[medicationName]--;
+        updateQuantityDisplay(medicationName, index);
+        updateCartSummary();
     }
 }
 
 // Actualizar display de cantidad
-function updateQuantityDisplay(medication, index) {
-    const quantity = medicationQuantities[medication];
+function updateQuantityDisplay(medicationName, index) {
+    const quantity = medicationQuantities[medicationName];
     const card = document.getElementById(`med-${index}`);
     const quantityDisplay = document.getElementById(`quantity-${index}`);
     const decreaseBtn = document.getElementById(`decrease-${index}`);
     const badge = document.getElementById(`badge-${index}`);
+    const priceDisplay = card.querySelector('.medication-price');
     
     // Actualizar display
     quantityDisplay.textContent = quantity;
@@ -168,8 +259,14 @@ function updateQuantityDisplay(medication, index) {
     // Actualizar estado visual de la tarjeta
     if (quantity > 0) {
         card.classList.add('has-quantity');
+        // Ocultar precio y mostrar badge
+        priceDisplay.style.display = 'none';
+        badge.style.display = 'flex';
     } else {
         card.classList.remove('has-quantity');
+        // Mostrar precio y ocultar badge
+        priceDisplay.style.display = 'block';
+        badge.style.display = 'none';
     }
     
     // Actualizar resumen
@@ -180,6 +277,7 @@ function updateQuantityDisplay(medication, index) {
 function updateOrderSummary() {
     const floatingCart = document.getElementById('floatingCart');
     const cartCount = document.getElementById('cartCount');
+    const cartTotal = document.getElementById('cartTotal');
     
     // Obtener medicamentos con cantidad > 0
     const selectedMedications = Object.entries(medicationQuantities)
@@ -193,11 +291,82 @@ function updateOrderSummary() {
     // Mostrar carrito flotante
     floatingCart.style.display = 'flex';
     
-    // Calcular total de items
-    const totalItems = selectedMedications.reduce((sum, [_, quantity]) => sum + quantity, 0);
+    // Calcular total de items y precio
+    let totalItems = 0;
+    let totalPrice = 0;
     
-    // Actualizar contador
+    selectedMedications.forEach(([medicationName, quantity]) => {
+        totalItems += quantity;
+        const medication = MEDICATIONS_WITH_PRICES.find(m => m.name === medicationName);
+        if (medication) {
+            totalPrice += medication.price * quantity;
+        }
+    });
+    
+    // Actualizar contador y total
     cartCount.textContent = totalItems;
+    cartTotal.textContent = `$${totalPrice.toLocaleString('es-AR')}`;
+}
+
+// Actualizar carrito de compras detallado
+function updateCartSummary() {
+    const cartItemsContainer = document.getElementById('cartItems');
+    const totalItemsCount = document.getElementById('totalItemsCount');
+    const totalPriceElement = document.getElementById('totalPrice');
+    
+    // Obtener medicamentos con cantidad > 0
+    const selectedMedications = Object.entries(medicationQuantities)
+        .filter(([_, quantity]) => quantity > 0);
+    
+    // Limpiar carrito actual
+    cartItemsContainer.innerHTML = '';
+    
+    if (selectedMedications.length === 0) {
+        totalItemsCount.textContent = '0';
+        totalPriceElement.textContent = '$0.00';
+        cartItemsContainer.innerHTML = '<p style="text-align: center; color: var(--text-muted); padding: 1rem;">Tu carrito está vacío</p>';
+        return;
+    }
+    
+    // Calcular totales
+    let totalItems = 0;
+    let totalPrice = 0;
+    
+    // Crear items del carrito
+    selectedMedications.forEach(([medicationName, quantity]) => {
+        const medication = MEDICATIONS_WITH_PRICES.find(m => m.name === medicationName);
+        if (medication) {
+            totalItems += quantity;
+            totalPrice += medication.price * quantity;
+            
+            // Crear item del carrito
+            const cartItem = document.createElement('div');
+            cartItem.className = 'cart-item';
+            cartItem.innerHTML = `
+                <div class="cart-item-name">${medicationName}</div>
+                <div class="cart-item-details">
+                    <span class="cart-item-quantity">x${quantity}</span>
+                    <span class="cart-item-price">$${(medication.price * quantity).toLocaleString('es-AR')}</span>
+                    <button class="cart-item-remove" onclick="removeFromCart('${medicationName}')">✕</button>
+                </div>
+            `;
+            cartItemsContainer.appendChild(cartItem);
+        }
+    });
+    
+    // Actualizar totales
+    totalItemsCount.textContent = totalItems;
+    totalPriceElement.textContent = `$${totalPrice.toLocaleString('es-AR')}`;
+}
+
+// Remover del carrito
+function removeFromCart(medicationName) {
+    const index = MEDICATIONS_WITH_PRICES.findIndex(m => m.name === medicationName);
+    if (index !== -1) {
+        medicationQuantities[medicationName] = 0;
+        updateQuantityDisplay(medicationName, index);
+        updateCartSummary();
+    }
 }
 
 // Manejar el envío del formulario - Optimizado para Google Sheets
