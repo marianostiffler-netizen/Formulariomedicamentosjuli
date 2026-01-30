@@ -3,23 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario de Medicamentos</title>
     <link rel="stylesheet" href="styles.css">
+    <title>Formulario de Medicamentos</title>
 </head>
 <body>
     <h1>Formulario de Medicamentos</h1>
-    <div id="medicinesContainer"></div>
-    <div id="orderSummary"></div>
-    <form id="orderForm">
-        <label for="clientName">Nombre:</label>
-        <input type="text" id="clientName" required>
-        <label for="clientPhone">Teléfono:</label>
-        <input type="text" id="clientPhone" required>
-        <label for="clientEmail">Email:</label>
-        <input type="email" id="clientEmail" required>
-        <button type="submit">Enviar Solicitud de Pedido</button>
+    <form id="medicamentos-form">
+        <label for="nombre">Nombre del Medicamento:</label>
+        <input type="text" id="nombre" name="nombre" required>
+
+        <label for="dosis">Dosis:</label>
+        <input type="text" id="dosis" name="dosis" required>
+
+        <label for="frecuencia">Frecuencia:</label>
+        <input type="text" id="frecuencia" name="frecuencia" required>
+
+        <button type="submit">Enviar</button>
     </form>
-    <div id="submitMessage" class="message"></div>
-    <script src="app.js"></script>
+    <script src="api/submit-order.js"></script>
 </body>
 </html>

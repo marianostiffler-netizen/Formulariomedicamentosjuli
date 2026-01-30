@@ -1,63 +1,39 @@
 body {
     font-family: Arial, sans-serif;
     margin: 20px;
+    padding: 0;
 }
 
 h1 {
     color: #333;
 }
 
-.medicine-card {
+form {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+}
+
+label {
+    margin-bottom: 5px;
+}
+
+input {
+    margin-bottom: 15px;
+    padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 4px;
+}
+
+button {
     padding: 10px;
-    margin: 10px 0;
-    display: flex;
-    align-items: center;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
-.medicine-name {
-    margin-left: 10px;
-}
-
-.selected {
-    background-color: #e0f7fa;
-}
-
-.medicine-quantity {
-    margin-left: auto;
-}
-
-.message {
-    margin-top: 20px;
-    padding: 10px;
-    border-radius: 5px;
-}
-
-.message.success {
-    background-color: #d4edda;
-    color: #155724;
-}
-
-.message.error {
-    background-color: #f8d7da;
-    color: #721c24;
-}
-
-.message.loading {
-    background-color: #fff3cd;
-    color: #856404;
-}
-
-#medicinesContainer {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 10px;
-}
-
-.order-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 5px;
-    border-bottom: 1px solid #ccc;
+button:hover {
+    background-color: #218838;
 }
