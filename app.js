@@ -86,6 +86,10 @@ function parseCSV(csvText) {
     const lines = csvText.split('\n').filter(line => line.trim());
     const medications = [];
     
+    if (lines.length === 0) {
+        return medications;
+    }
+    
     // Omitir header si existe
     const startIndex = lines[0].toLowerCase().includes('medicamento') || lines[0].toLowerCase().includes('producto') ? 1 : 0;
     
@@ -303,6 +307,10 @@ function showNoResultsMessage(show) {
 function generateMedicationCatalog() {
     const grid = document.getElementById('medicationsGrid');
     
+    // Evitar duplicados si se vuelve a cargar el inventario
+    grid.innerHTML = '';
+    medicationQuantities = {};
+    
     MEDICATIONS_WITH_PRICES.forEach((medication, index) => {
         const card = createMedicationCard(medication, index);
         grid.appendChild(card);
@@ -310,6 +318,9 @@ function generateMedicationCatalog() {
         // Inicializar cantidad en 0
         medicationQuantities[medication.name] = 0;
     });
+
+    updateCartSummary();
+    updateOrderSummary();
 }
 
 // Crear tarjeta de medicamento con precio
@@ -628,8 +639,8 @@ function resetForm() {
     });
     
     // Actualizar todos los displays
-    MEDICATIONS.forEach((medication, index) => {
-        updateQuantityDisplay(medication, index);
+    MEDICATIONS_WITH_PRICES.forEach((medication, index) => {
+        updateQuantityDisplay(medication.name, index);
     });
     
     // Ocultar carrito flotante
@@ -666,6 +677,12 @@ function setLoadingState(isLoading) {
 function isValidEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
+}
+
+// Validar teléfono
+function isValidPhone(phone) {
+    const digits = String(phone || '').replace(/\D/g, '');
+    return digits.length >= 8 && digits.length <= 15;
 }
 
 // Validar DNI

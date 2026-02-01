@@ -599,8 +599,8 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: var(--secondary-black);
-    border: 1px solid var(--border-gray);
+    background: white;
+    border: 2px solid var(--border-color);
     border-radius: var(--border-radius);
     padding: 2rem;
     max-width: 400px;
@@ -626,8 +626,8 @@ body {
 }
 
 .message-container.message-loading {
-    border-color: var(--neutron-color);
-    box-shadow: 0 10px 40px rgba(0, 212, 255, 0.2);
+    border-color: var(--lightning-color);
+    box-shadow: 0 10px 40px rgba(243, 156, 18, 0.2);
 }
 
 /* No Results */
@@ -637,9 +637,9 @@ body {
     color: var(--text-muted);
     font-size: 1.1rem;
     padding: 3rem;
-    background: var(--dark-gray);
+    background: white;
     border-radius: var(--border-radius);
-    border: 1px solid var(--border-gray);
+    border: 2px solid var(--border-color);
 }
 
 /* Footer */
@@ -732,8 +732,8 @@ body {
         gap: 0.5rem;
     }
     
-    .neutron-symbol {
-        font-size: 1.5rem;
+    .lightning-logo {
+        font-size: 2rem;
     }
     
     .section-title {
