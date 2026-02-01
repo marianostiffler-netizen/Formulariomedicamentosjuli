@@ -59,11 +59,20 @@ async function loadMedicationsFromGoogleSheets() {
         
         const csvText = await response.text();
         
+        // Si el CSV está vacío o solo tiene espacios, ir directo al fallback sin mostrar error
+        if (!csvText || !csvText.trim()) {
+            console.log('CSV vacío, cargando inventario local...');
+            loadFallbackMedications();
+            return;
+        }
+        
         // Parsear CSV
         const medications = parseCSV(csvText);
         
         if (medications.length === 0) {
-            throw new Error('No se encontraron medicamentos en el inventario');
+            console.log('No se encontraron productos válidos en el CSV, cargando inventario local...');
+            loadFallbackMedications();
+            return;
         }
         
         // Actualizar lista global
@@ -75,13 +84,15 @@ async function loadMedicationsFromGoogleSheets() {
         // Ocultar mensaje de carga
         hideMessage();
         
-        console.log(`Se cargaron ${medications.length} medicamentos exitosamente`);
+        console.log(`Se cargaron ${medications.length} medicamentos exitosamente desde Google Sheets`);
         
     } catch (error) {
         console.error('Error al cargar medicamentos:', error);
         
-        // Mostrar mensaje de error
-        showMessage('Error al conectar con el inventario', 'error');
+        // Mostrar mensaje de error solo si es un error real de red
+        if (error.message.includes('HTTP error') || error.message.includes('fetch')) {
+            showMessage('Error al conectar con el inventario', 'error');
+        }
         
         // Cargar medicamentos de respaldo
         loadFallbackMedications();
@@ -149,6 +160,8 @@ function parseCSVLine(line) {
 
 // Cargar medicamentos de respaldo
 function loadFallbackMedications() {
+    console.log('Cargando inventario local (fallback)...');
+    
     MEDICATIONS_WITH_PRICES = [
         { name: "ACTRON 400 R.A", price: 3150 },
         { name: "ACTRON 600", price: 7290 },
@@ -217,8 +230,8 @@ function loadFallbackMedications() {
         { name: "REFRIANEX", price: 1240 },
         { name: "RENNIE", price: 1560 },
         { name: "RESAQUIT", price: 1820 },
-        { name: "SERTAL CTO", price: 2890 },
-        { name: "SERTAL PERLAS", price: 3240 },
+        { name: "SERCAL CTO", price: 2890 },
+        { name: "SERCAL PERLAS", price: 3240 },
         { name: "SUERO FISIOLOGICO", price: 420 },
         { name: "TAFIROL", price: 780 },
         { name: "TAFIROL 1 G", price: 1120 },
@@ -242,10 +255,10 @@ function loadFallbackMedications() {
     // Generar catálogo con datos de respaldo
     generateMedicationCatalog();
     
-    // Ocultar mensaje de error después de 3 segundos
+    // Ocultar cualquier mensaje de error después de 2 segundos
     setTimeout(() => {
         hideMessage();
-    }, 3000);
+    }, 2000);
 }
 
 // Inicializar búsqueda
