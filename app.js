@@ -1,12 +1,13 @@
 // Variables globales
 const GOOGLE_SCRIPTS_URL = 'https://script.google.com/macros/s/TU_SCRIPT_ID_AQUI/exec'; // Reemplazar con tu URL
 const GOOGLE_SHEETS_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRGkcrXq1qz_W83RDzBZRB2dLgCBQ5eitedXZpAtSQblhCU4OG1WCNehilXhDy_QLjBlGcjBHH0u660/pub?output=csv';
+const WHATSAPP_PHONE = '54911XXXXXXXXXX';
 
 // Lista de medicamentos (se cargará dinámicamente)
 let MEDICATIONS_WITH_PRICES = [];
 
 // Cache DOM elements
-let form, messageContainer, messageContent;
+let form, messageContainer, messageContent, whatsappButton;
 let medicationQuantities = {};
 let cartItems = [];
 
@@ -21,6 +22,7 @@ async function initializeForm() {
     form = document.getElementById('orderForm');
     messageContainer = document.getElementById('messageContainer');
     messageContent = document.getElementById('messageContent');
+    whatsappButton = document.getElementById('whatsappButton');
     
     // Cargar medicamentos desde Google Sheets
     await loadMedicationsFromGoogleSheets();
@@ -36,6 +38,11 @@ async function initializeForm() {
     
     // Agregar validación en tiempo real
     addRealTimeValidation();
+
+    if (whatsappButton) {
+        whatsappButton.addEventListener('click', openWhatsApp);
+        whatsappButton.style.display = 'none';
+    }
 }
 
 // Cargar medicamentos desde Google Sheets CSV
@@ -408,6 +415,7 @@ function updateOrderSummary() {
     
     if (selectedMedications.length === 0) {
         floatingCart.style.display = 'none';
+        if (whatsappButton) whatsappButton.style.display = 'none';
         return;
     }
     
@@ -429,6 +437,8 @@ function updateOrderSummary() {
     // Actualizar contador y total
     cartCount.textContent = totalItems;
     cartTotal.textContent = `$${totalPrice.toLocaleString('es-AR')}`;
+
+    if (whatsappButton) whatsappButton.style.display = 'block';
 }
 
 // Actualizar carrito de compras detallado
@@ -448,6 +458,7 @@ function updateCartSummary() {
         totalItemsCount.textContent = '0';
         totalPriceElement.textContent = '$0.00';
         cartItemsContainer.innerHTML = '<p style="text-align: center; color: var(--text-muted); padding: 1rem;">Tu carrito está vacío</p>';
+        if (whatsappButton) whatsappButton.style.display = 'none';
         return;
     }
     
@@ -480,6 +491,8 @@ function updateCartSummary() {
     // Actualizar totales
     totalItemsCount.textContent = totalItems;
     totalPriceElement.textContent = `$${totalPrice.toLocaleString('es-AR')}`;
+
+    if (whatsappButton) whatsappButton.style.display = 'block';
 }
 
 // Remover del carrito
@@ -645,6 +658,8 @@ function resetForm() {
     
     // Ocultar carrito flotante
     document.getElementById('floatingCart').style.display = 'none';
+
+    if (whatsappButton) whatsappButton.style.display = 'none';
     
     // Limpiar búsqueda
     document.getElementById('searchInput').value = '';
@@ -656,6 +671,64 @@ function resetForm() {
     allFields.forEach(field => {
         field.classList.remove('invalid');
     });
+}
+
+function buildWhatsAppMessage() {
+    const name = document.getElementById('patientName')?.value?.trim() || '';
+    const dni = document.getElementById('patientDNI')?.value?.trim() || '';
+    const phone = document.getElementById('patientPhone')?.value?.trim() || '';
+    const email = document.getElementById('patientEmail')?.value?.trim() || '';
+
+    const selected = Object.entries(medicationQuantities)
+        .filter(([_, qty]) => qty > 0);
+
+    let totalPrice = 0;
+    const lines = selected.map(([medicationName, qty]) => {
+        const medication = MEDICATIONS_WITH_PRICES.find(m => m.name === medicationName);
+        const unit = medication?.price || 0;
+        const subtotal = unit * qty;
+        totalPrice += subtotal;
+        return `- ${medicationName} x${qty} ($${subtotal.toLocaleString('es-AR')})`;
+    });
+
+    const header = 'Pedido FARMA RAYO';
+    const customerLines = [
+        name ? `Nombre: ${name}` : null,
+        dni ? `DNI: ${dni}` : null,
+        phone ? `Tel: ${phone}` : null,
+        email ? `Email: ${email}` : null
+    ].filter(Boolean);
+
+    const body = [
+        header,
+        ...customerLines,
+        '',
+        'Productos:',
+        ...lines,
+        '',
+        `Total: $${totalPrice.toLocaleString('es-AR')}`
+    ].join('\n');
+
+    return body;
+}
+
+function openWhatsApp() {
+    const hasMedications = Object.values(medicationQuantities).some(qty => qty > 0);
+    if (!hasMedications) {
+        showMessage('Seleccioná al menos un medicamento para enviar por WhatsApp.', 'error');
+        return;
+    }
+
+    const text = encodeURIComponent(buildWhatsAppMessage());
+    const phone = String(WHATSAPP_PHONE || '').replace(/\D/g, '');
+
+    if (!phone) {
+        showMessage('Configurá el número de WhatsApp en WHATSAPP_PHONE.', 'error');
+        return;
+    }
+
+    const url = `https://wa.me/${phone}?text=${text}`;
+    window.open(url, '_blank', 'noopener,noreferrer');
 }
 
 // Establecer estado de carga

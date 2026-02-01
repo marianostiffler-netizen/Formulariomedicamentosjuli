@@ -593,6 +593,29 @@ body {
     color: white;
 }
 
+/* Botón WhatsApp */
+.whatsapp-button {
+    position: fixed;
+    bottom: 2rem;
+    left: 2rem;
+    background: #25D366;
+    border: none;
+    color: white;
+    padding: 0.9rem 1.2rem;
+    border-radius: 999px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+    z-index: 1000;
+    box-shadow: 0 8px 30px rgba(37, 211, 102, 0.35);
+    letter-spacing: 0.02em;
+}
+
+.whatsapp-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 34px rgba(37, 211, 102, 0.45);
+}
+
 /* Mensajes */
 .message-container {
     position: fixed;
@@ -715,6 +738,14 @@ body {
         bottom: 1rem;
         right: 1rem;
         left: 1rem;
+    }
+    
+    .whatsapp-button {
+        bottom: 5.5rem;
+        left: 1rem;
+        right: 1rem;
+        width: calc(100% - 2rem);
+        text-align: center;
     }
     
     .cart-content {
